@@ -11,7 +11,9 @@
 :root{
   --emerald-1:#0d6b52; --emerald-2:#084638; --emerald-3:#063528;
   --wine:#7a1f3d; --wine-dark:#59152b; --wine-light:#a8395c; --gold:#e8c66b;
+  --winered-1:#a3253a; --winered-2:#7c1626; --winered-3:#5c0f1c; 
   --sponge:#e8c396;          /* Pandispanya */
+  --sponge-baked:#c69c6d;    /* Fırından çıkmış kızarmış renk */
   --sponge-soaked:#5c3a21;   /* Espresso ile ıslanmış renk */
   --cream:#fdfbf7;           /* Beyaz Mascarpone Kreması */
   --cocoa:#4a2c11;           /* Kakao tozu */
@@ -66,7 +68,9 @@ button.main-btn:disabled{ opacity:.35; }
 .drag-squash { transform: translateX(-50%) scale(1.1) scaleY(0.9) !important; cursor:grabbing !important; }
 #egg.cracking{ animation:eggCrack .35s ease; }
 @keyframes eggCrack{ 0%{transform:translateX(-50%) scale(1);} 40%{transform:translateX(-50%) scale(1.3) rotate(-15deg);} 100%{transform:translateX(-50%) scale(0); opacity:0;} }
-.egg-yolk-drop{ position:absolute; width:28px; height:28px; border-radius:50%; background:#f6b73c; box-shadow:0 0 0 4px rgba(255,255,255,.9); left:50%; top:20%; transform:translateX(-50%) scale(0); transition:transform .4s cubic-bezier(.34,1.56,.64,1); }
+.egg-white-drop{ position:absolute; width:76px; height:20px; border-radius:50%; background:rgba(255,255,255,.85); left:50%; bottom:6%; transform:translateX(-50%) scale(0); transition:transform .45s cubic-bezier(.34,1.56,.64,1); filter:blur(1px); }
+.egg-white-drop.show{ transform:translateX(-50%) scale(1); }
+.egg-yolk-drop{ position:absolute; width:26px; height:26px; border-radius:50%; background:#f6b73c; left:50%; bottom:8%; transform:translateX(-50%) scale(0); transition:transform .4s cubic-bezier(.34,1.56,.64,1) .18s; }
 .egg-yolk-drop.show{ transform:translateX(-50%) scale(1); }
 
 #shaker-row{ position:absolute; top:-20px; left:50%; transform:translateX(-50%); display:flex; gap:30px; z-index:15; }
@@ -75,54 +79,79 @@ button.main-btn:disabled{ opacity:.35; }
 @keyframes shakeIt{ 0%,100%{transform:rotate(0);} 30%{transform:rotate(-20deg) scale(1.1);} 70%{transform:rotate(20deg) scale(1.1);} }
 .mini-progress{ width:60px; height:8px; border-radius:5px; background:rgba(255,255,255,.2); overflow:hidden; margin:8px auto 0; }
 .mini-progress-fill{ height:100%; width:0%; background:var(--gold); transition:width .2s; }
-.powder-burst{ position:fixed; font-size:18px; pointer-events:none; animation:powderFall .7s ease-out forwards; z-index:50;}
-@keyframes powderFall{ 0%{transform:translate(0,0) scale(1);opacity:1;} 100%{transform:translate(var(--pdx),80px) scale(0.5);opacity:0;} }
+.powder-burst{ position:fixed; font-size:18px; pointer-events:none; animation:powderFall .8s ease-out forwards; z-index:50;}
+@keyframes powderFall{ 0%{transform:translate(0,0) scale(1);opacity:1;} 100%{transform:translate(var(--pdx),80px) scale(0.6);opacity:0;} }
 
-/* Mikser */
-.mixer{ position:absolute; top:-50px; left:50%; transform:translateX(-50%); z-index:6; pointer-events:none;}
-.mixer-body{ width:36px; height:50px; margin:0 auto; background:linear-gradient(180deg,#e2e2e2,#a0a0a0); border-radius:10px 10px 5px 5px; box-shadow:0 4px 10px rgba(0,0,0,.4); position:relative; }
-.mixer-beaters{ display:flex; justify-content:center; gap:12px; margin-top:-2px; }
-.mixer-beater{ width:5px; height:30px; background:#888; border-radius:0 0 4px 4px; transform-origin:top center; }
-.mixer.spin .mixer-beater{ animation:beaterSpin .1s linear infinite; }
-@keyframes beaterSpin{ 0%{transform:rotate(0deg) scaleX(1);} 50%{transform:rotate(20deg) scaleX(1.4);} 100%{transform:rotate(-20deg) scaleX(1);} }
+/* Modern Şık Mikser */
+.mixer{ position:absolute; top:-58px; left:50%; transform:translateX(-50%); z-index:6; pointer-events:none;}
+.mixer-body{ width:54px; height:60px; margin:0 auto; background:linear-gradient(160deg,#ffffff,#c2c2c2); border-radius:18px 18px 8px 8px; box-shadow:0 6px 14px rgba(0,0,0,.4); position:relative; }
+.mixer-handle{ position:absolute; top:-20px; left:50%; transform:translateX(-50%); width:30px; height:24px; border:6px solid #b2b2b2; border-bottom:none; border-radius:16px 16px 0 0; }
+.mixer-vent{ position:absolute; top:12px; left:10px; right:10px; height:18px; background:repeating-linear-gradient(90deg,#888 0 3px,transparent 3px 6px); border-radius:4px; opacity:.7; }
+.mixer-power{ position:absolute; bottom:6px; left:50%; transform:translateX(-50%); width:18px; height:18px; border-radius:50%; background:#444; border:2px solid #666; color:#aaa; font-size:10px; line-height:14px; text-align:center; cursor:pointer; pointer-events:auto; transition:all 0.1s; }
+.mixer-power.on{ background:var(--wine); border-color:var(--gold); color:#fff; box-shadow:0 0 10px var(--gold); }
+.mixer-power:active { transform: translateX(-50%) scale(0.9); }
+.mixer-beaters{ display:flex; justify-content:center; gap:16px; margin-top:-4px; }
+.mixer-beater{ width:6px; height:34px; background:linear-gradient(90deg, #999, #ddd, #999); border-radius:0 0 4px 4px; transform-origin:top center; }
+.mixer.spin .mixer-beater{ animation:beaterSpin .08s linear infinite; }
+@keyframes beaterSpin{ 0%{transform:rotate(0deg) scaleX(1);} 50%{transform:rotate(20deg) scaleX(1.5);} 100%{transform:rotate(-20deg) scaleX(1);} }
+.mixer-cord{ position:absolute; top:22px; left:calc(50% + 27px); width:40px; height:26px; border:3px solid #333; border-left:none; border-radius:0 16px 16px 0; }
+.mixer-plug{ position:absolute; top:18px; left:calc(50% + 64px); font-size:18px; cursor:grab; touch-action:none; z-index:9; pointer-events:auto; filter:drop-shadow(1px 2px 2px rgba(0,0,0,.4)); }
+.wall-socket{ position:absolute; top:6px; left:calc(50% + 78px); width:24px; height:32px; background:#e8e2d5; border-radius:6px; box-shadow:0 3px 6px rgba(0,0,0,.35); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; border:1px solid #ccc; }
+.socket-hole{ width:5px; height:5px; background:#222; border-radius:50%; transition:background .3s, box-shadow .3s; }
+.wall-socket.plugged .socket-hole{ background:var(--gold); box-shadow:0 0 6px var(--gold); }
 
-/* 2. Fırın */
-#oven{ position:relative; width:250px; height:220px; perspective:600px; }
-#oven-body{ position:absolute; inset:0; background:linear-gradient(180deg,#3a3a3a,#202020); border-radius:16px; box-shadow:0 15px 30px rgba(0,0,0,.5); }
-#oven-opening{ position:absolute; top:20px; left:20px; right:20px; bottom:20px; border-radius:10px; background:#111; overflow:hidden; }
-#oven-glow{ position:absolute; inset:0; background:radial-gradient(circle, rgba(255,120,20,0) 0%, rgba(255,120,20,0) 100%); transition:background 3s ease; }
-#oven-glow.on{ background:radial-gradient(circle, rgba(255,140,40,.9) 0%, rgba(120,30,10,1) 100%); }
-#pan{ position:absolute; bottom:12px; left:50%; transform:translateX(-50%); width:140px; height:22px; border-radius:6px; background:#777; overflow:hidden; box-shadow:0 4px 8px rgba(0,0,0,0.5); }
+/* 2. Cam Kapaklı Fırın */
+#oven-station{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+#oven{ position:relative; width:260px; height:230px; perspective:800px; }
+#oven-body{ position:absolute; inset:0; background:linear-gradient(180deg,#444,#1a1a1a); border-radius:18px; box-shadow:0 18px 35px rgba(0,0,0,.6); border:2px solid #555; }
+#oven-opening{ position:absolute; top:24px; left:24px; right:24px; bottom:24px; border-radius:12px; background:#0a0a0a; overflow:hidden; }
+#oven-glow{ position:absolute; inset:0; background:radial-gradient(circle, rgba(255,140,40,0) 0%, rgba(255,140,40,0) 100%); transition:background 2s ease; }
+#oven-glow.on{ background:radial-gradient(circle, rgba(255,140,40,.8) 0%, rgba(120,30,10,.9) 100%); }
+#pan{ position:absolute; bottom:12px; left:50%; transform:translateX(-50%); width:140px; height:24px; border-radius:6px; background:linear-gradient(180deg, #888, #555); overflow:hidden; box-shadow:0 6px 12px rgba(0,0,0,0.6); }
 #pan-batter{ position:absolute; left:0; right:0; bottom:0; height:0%; background:#ecd9a8; transition:height .6s ease; }
-#oven-door{ position:absolute; top:20px; left:20px; bottom:20px; width:calc(100% - 40px); background:linear-gradient(180deg,#4d4d4d,#2a2a2a); border:3px solid #666; border-radius:10px; transform-origin:bottom center; transform:rotateX(0deg); transition:transform 0.8s cubic-bezier(.4,0,.2,1); z-index:10; }
-#oven-door.open{ transform:rotateX(95deg); }
-#oven-door::before{ content:""; position:absolute; inset:12px; border:2px solid #777; border-radius:6px; background:rgba(255,255,255,0.05); }
-#oven-dial{ position:absolute; bottom:-12px; right:20px; font-size:32px; }
-#oven-timer{ position:absolute; top:-40px; left:50%; transform:translateX(-50%); font-size:24px; font-weight:700; color:var(--gold); }
-#oven-btns{ position:absolute; bottom:-65px; left:0; right:0; display:flex; gap:12px; justify-content:center; }
-.small-btn{ padding:10px 18px; font-size:15px; font-weight:700; font-family:inherit; background:var(--wine); border:none; border-radius:24px; color:#fff; box-shadow:0 4px 10px rgba(0,0,0,0.3); }
-.smoke-particle { position:absolute; bottom:40px; left:50%; width:20px; height:20px; background:rgba(255,255,255,0.3); border-radius:50%; filter:blur(5px); animation:smokeRise 1.5s ease-out forwards; pointer-events:none; z-index:12;}
-@keyframes smokeRise { 0%{ transform:translate(-50%,0) scale(1); opacity:0.8;} 100%{ transform:translate(calc(-50% + var(--sx)), -80px) scale(3); opacity:0;} }
+#prep-pan{ position:relative; width:140px; height:24px; border-radius:6px; background:linear-gradient(180deg, #888, #555); overflow:hidden; box-shadow:0 6px 12px rgba(0,0,0,0.5); transition:opacity .4s; }
+#prep-pan-batter{ position:absolute; left:0; right:0; bottom:0; height:0%; background:#ecd9a8; transition:height .6s ease; }
 
-/* 3. Pasta İstasyonu (Kedi Dili ve Bordo Kurdele) */
+/* Fırın Kapağı ve Cam Detayı */
+#oven-door{ position:absolute; top:22px; left:22px; bottom:22px; width:calc(100% - 44px); background:linear-gradient(180deg,#3d3d3d,#222); border:4px solid #555; border-radius:12px; transform-origin:bottom center; transform:rotateX(0deg); transition:transform 0.8s cubic-bezier(.4,0,.2,1); z-index:10; }
+#oven-door.open{ transform:rotateX(95deg); }
+#oven-window{ position:absolute; inset:16px; border-radius:8px; border:3px solid #1a1a1a; background:rgba(0,0,0,0.8); overflow:hidden; transition:background 1s ease; box-shadow:inset 0 0 15px rgba(0,0,0,0.9); }
+#oven-window-glass-flare{ position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.02) 50%, rgba(0,0,0,0.3) 100%); z-index:2; pointer-events:none;}
+/* Fırın çalışırken camdan görünen içerik */
+#oven-door.baking #oven-window{ background:rgba(180,60,10,0.35); }
+#glass-pan{ position:absolute; bottom:10px; left:15%; width:70%; height:18px; background:#444; border-radius:4px; opacity:0; transition:opacity 1s ease; overflow:hidden;}
+#glass-batter{ position:absolute; left:0; right:0; bottom:0; height:60%; background:#ecd9a8; transition:height 6s linear, background 6s linear; }
+#oven-door.baking #glass-pan{ opacity:1; }
+#oven-door.baking #glass-batter{ height:120%; background:var(--sponge-baked); }
+
+#oven-dial{ position:absolute; bottom:-14px; right:24px; font-size:34px; filter:drop-shadow(0 4px 4px rgba(0,0,0,0.5));}
+#oven-timer{ position:absolute; top:-40px; left:50%; transform:translateX(-50%); font-size:24px; font-weight:700; color:var(--gold); }
+#oven-btns{ position:absolute; bottom:-70px; left:0; right:0; display:flex; gap:12px; justify-content:center; }
+.small-btn{ padding:12px 20px; font-size:15px; font-weight:700; font-family:inherit; background:var(--wine); border:none; border-radius:24px; color:#fff; box-shadow:0 4px 10px rgba(0,0,0,0.4); cursor:pointer;}
+.small-btn:active{ transform:scale(0.95); }
+
+/* 3. Krema İstasyonu (Yeni) */
+#cream-bowl-wrap{ position:relative; width:220px; height:220px; }
+#cream-bowl{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:180px; height:110px; border-radius:0 0 90px 90px / 0 0 65px 65px; background:linear-gradient(180deg,#e8e8e8,#b0b0b0); box-shadow:0 12px 24px rgba(0,0,0,.4), inset 0 -10px 16px rgba(0,0,0,.2); overflow:hidden; }
+#cream-bowl-fill{ position:absolute; left:0; right:0; bottom:0; height:0%; background:#f3e9d8; transition:height .4s ease, background .4s ease; }
+
+/* 4. Pasta Montaj İstasyonu */
 #cake-wrap{ position:relative; width:280px; height:300px; transition: opacity 0.5s ease; }
-#cake-stand{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:260px; height:30px; border-radius:50%; background:radial-gradient(ellipse at 50% 30%,#b58453,#694320); box-shadow:0 15px 30px rgba(0,0,0,.5); } /* Ahşap dokulu stand */
+#cake-stand{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:260px; height:30px; border-radius:50%; background:radial-gradient(ellipse at 50% 30%,#b58453,#694320); box-shadow:0 15px 30px rgba(0,0,0,.5); border-bottom:4px solid #4a2c11;} 
 .tier{ position:absolute; left:50%; transform:translateX(-50%) scale(.4); opacity:0; border-radius:20px; box-shadow:inset 0 -8px 14px rgba(0,0,0,.2), 0 6px 12px rgba(0,0,0,.3); transition:transform .5s cubic-bezier(.34,1.56,.64,1), opacity .4s ease, background 0.8s ease; }
 .tier.show{ transform:translateX(-50%) scale(1); opacity:1; }
 .tier::after{ content:""; position:absolute; top:-10px; left:0; right:0; height:24px; border-radius:50%; background:inherit; filter:brightness(1.15); transition:background 0.8s ease;}
 
-#sponge-1{ bottom:18px; width:206px; height:80px; background:var(--sponge); }
+#sponge-1{ bottom:18px; width:206px; height:80px; background:var(--sponge-baked); }
 #sponge-1.soaked{ background:var(--sponge-soaked); }
 #cream-1{ bottom:98px; width:206px; height:24px; border-radius:12px; background:var(--cream); box-shadow:0 4px 8px rgba(0,0,0,0.1); }
 #cream-1::after{ display:none; }
 
-/* Kedi Dili Bisküviler */
 #lf-wrap { position:absolute; bottom:18px; left:50%; transform:translateX(-50%); width:236px; height:120px; display:flex; opacity:0; transition:opacity 0.6s, transform 0.6s cubic-bezier(.34,1.56,.64,1); z-index:4; align-items:flex-end; transform:translateX(-50%) scale(1.2); }
 #lf-wrap.show { opacity:1; transform:translateX(-50%) scale(1); }
 .lf { flex:1; height:110px; margin:0 1px; background:linear-gradient(to right, #f3d4a1, #d4a373, #b57a40); border-radius:12px; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15), 2px 0 6px rgba(0,0,0,0.3); position:relative; }
 .lf::before { content:''; position:absolute; top:4px; left:4px; right:4px; bottom:4px; border-radius:8px; border:1px dashed rgba(0,0,0,0.1); } 
 
-/* Bordo Kurdele */
 #ribbon-wrap { position:absolute; bottom:50px; left:50%; transform:translateX(-50%); width:242px; height:18px; background:linear-gradient(to bottom, var(--wine-light), var(--wine), var(--wine-dark)); opacity:0; transition:opacity 0.5s, transform 0.5s cubic-bezier(.34,1.56,.64,1); z-index:5; box-shadow: 0 4px 8px rgba(0,0,0,0.4); border-radius:4px; transform:translateX(-50%) scale(1.5); }
 #ribbon-wrap.show { opacity:1; transform:translateX(-50%) scale(1); }
 .bow-center { position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); width:16px; height:22px; background:var(--wine-dark); border-radius:5px; z-index:3; box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
@@ -130,41 +159,22 @@ button.main-btn:disabled{ opacity:.35; }
 .bow-left { right:50%; transform-origin:right center; transform:translateY(-50%) perspective(150px) rotateY(30deg); }
 .bow-right { left:50%; transform-origin:left center; border-radius:50% 50% 50% 50% / 100% 50% 50% 100%; transform:translateY(-50%) perspective(150px) rotateY(-30deg); }
 
-/* Üst Kakao Tozu */
-#cocoa-dust { position:absolute; bottom:122px; left:50%; transform:translateX(-50%); width:200px; height:30px; border-radius:50%; background:var(--cocoa); opacity:0; transition:opacity 1s ease; z-index:3; filter:blur(2px); box-shadow:inset 0 0 10px rgba(0,0,0,0.8); }
-#cocoa-dust.show { opacity:0.9; }
+#cocoa-dust { position:absolute; bottom:122px; left:50%; transform:translateX(-50%); width:200px; height:30px; border-radius:50%; opacity:0; transition:opacity 1s ease; z-index:3; box-shadow:inset 0 0 10px rgba(0,0,0,0.8);
+  background-color:var(--cream);
+  background-image: repeating-linear-gradient(45deg, var(--cocoa) 0 9px, transparent 9px 18px), repeating-linear-gradient(-45deg, var(--cocoa) 0 9px, transparent 9px 18px);
+}
+#cocoa-dust.show { opacity:1; }
 
-/* Tepsiler */
 #build-tray { position:absolute; bottom:8px; left:0; right:0; display:flex; justify-content:center; gap:16px; z-index:20; }
 .build-item{ cursor:grab; touch-action:none; filter:drop-shadow(2px 4px 6px rgba(0,0,0,.4)); text-align:center; font-size:13px; color:#e6d9e2; font-weight:bold; }
-.build-item .shape{ width:66px; height:36px; border-radius:10px; background:var(--sponge); margin-bottom:6px; box-shadow:inset 0 -4px 6px rgba(0,0,0,0.2); display:flex; align-items:center; justify-content:center; font-size:20px;}
+.build-item .shape{ width:66px; height:36px; border-radius:10px; background:var(--sponge-baked); margin-bottom:6px; box-shadow:inset 0 -4px 6px rgba(0,0,0,0.2); display:flex; align-items:center; justify-content:center; font-size:20px;}
 .build-item.cream .shape{ background:var(--cream); height:22px; }
 .build-item.soak .shape, .build-item.ingr .shape{ background:transparent; box-shadow:none; font-size:40px; }
 .build-item.used { opacity:.2; pointer-events:none; }
 .drag-ghost{ position:fixed; pointer-events:none; z-index:400; transform:translate(-50%,-50%) scale(1.1); }
 
-/* 4. Kuşbakışı ve Bordo Yazı */
-#top-down-station{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 1s ease; flex-direction:column; }
-#top-down-station.active { opacity:1; pointer-events:auto; z-index:25; }
-#top-cake-circle { position:relative; width:280px; height:280px; border-radius:50%; background:#d4a373; box-shadow:inset 0 0 20px rgba(0,0,0,0.3), 0 20px 40px rgba(0,0,0,0.6); transform:scale(0.8); transition:transform 1s cubic-bezier(.34,1.56,.64,1); display:flex; align-items:center; justify-content:center; }
-#top-down-station.active #top-cake-circle { transform:scale(1); }
-/* İç krema ve kakao dokusu */
-#top-inner-cream { width:240px; height:240px; border-radius:50%; background:var(--cocoa); box-shadow:inset 0 0 30px rgba(0,0,0,0.8); position:relative; overflow:hidden; }
-
-/* Bordo Yazı Alanı */
-#pipe-track{ position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:260px; height:120px; z-index:50; touch-action:none; display:flex; align-items:center; justify-content:center; }
-#piping-bag{ position:absolute; top:-20px; font-size:42px; transform:translateX(-50%); pointer-events:none; filter:drop-shadow(0 8px 8px rgba(0,0,0,0.5)); z-index:60; }
-#cake-text-wrap{ position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:240px; height:auto; overflow:hidden; display:flex; align-items:center; justify-content:center; text-align:center;}
-/* Yazı Rengi Bordo */
-#cake-text{ font-family:'Great Vibes', cursive; font-size:40px; color:var(--wine); white-space:normal; line-height:1.1; text-shadow:0 1px 2px rgba(255,255,255,.3); margin:0;}
-
-#candle-tray { margin-top:30px; display:flex; justify-content:center; }
-#candle-item { font-size:50px; cursor:grab; touch-action:none; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.5)); }
-#placed-candle { position:absolute; top:40%; left:50%; transform:translate(-50%, -50%); font-size:50px; display:none; z-index:70; }
-#flame { position:absolute; top:-20px; left:50%; transform:translateX(-50%); width:16px; height:24px; background:radial-gradient(ellipse at bottom, #ffeb3b 20%, #ff9800 60%, transparent 100%); border-radius:50% 50% 20% 20%; box-shadow:0 0 15px #ff9800, 0 0 30px #ffeb3b; animation:flicker 0.2s infinite alternate; cursor:pointer; }
-@keyframes flicker { 0% {transform:translateX(-50%) scale(1) rotate(-2deg); opacity:0.9;} 100% {transform:translateX(-50%) scale(1.1) rotate(2deg); opacity:1;} }
-
-/* 5. Final Kutusu (Bordo) */
+/* 5. Final Kutusu ve Kartı */
+#final-screen{ z-index:200; background:rgba(4,30,24,.97); }
 #box-container{ position:relative; width:190px; height:130px; margin-top:10px; cursor:pointer; }
 .box-part{ position:absolute; border-radius:10px; box-shadow:0 12px 24px rgba(0,0,0,.4); transition:all 1.1s cubic-bezier(.34,1.56,.64,1); }
 #box-base{ bottom:0; left:10px; width:170px; height:90px; background:var(--wine-dark); }
@@ -175,22 +185,34 @@ button.main-btn:disabled{ opacity:.35; }
 .open #box-lid{ transform:translateY(-100px) rotate(-15deg); opacity:0; }
 .open #box-base{ transform:scaleY(.9); }
 
-#envelope-container{ position:relative; width:200px; height:140px; margin-top:10px; cursor:pointer; display:none; }
-/* Zarf gövdesi Bordo */
-#env-body{ position:absolute; inset:0; background:var(--wine-dark); border-radius:8px; box-shadow:0 15px 30px rgba(0,0,0,.5); overflow:hidden; border:2px solid var(--wine); }
-#env-flap{ position:absolute; top:0; left:0; width:100%; height:75px; background:var(--wine); clip-path:polygon(0 0,100% 0,50% 100%); transform-origin:top center; transition:transform 1s cubic-bezier(.34,1.56,.64,1); z-index:2; border-bottom:1px solid var(--gold);}
-#env-seal{ position:absolute; top:25px; left:50%; transform:translate(-50%,0); font-size:30px; z-index:3; }
+#envelope-container{ position:relative; width:220px; height:150px; margin-top:10px; cursor:pointer; display:none; }
+#env-body{ position:absolute; inset:0; background:var(--winered-3); border-radius:8px; box-shadow:0 15px 30px rgba(0,0,0,.5); overflow:hidden; border:2px solid var(--winered-1); }
+#env-flap{ position:absolute; top:0; left:0; width:100%; height:80px; background:linear-gradient(160deg,var(--winered-1),var(--winered-2)); clip-path:polygon(0 0,100% 0,50% 100%); transform-origin:top center; transition:transform 1s cubic-bezier(.34,1.56,.64,1); z-index:2; border-bottom:1px solid var(--gold);}
+#env-seal{ position:absolute; top:25px; left:50%; transform:translate(-50%,0); font-size:30px; z-index:3; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5));}
 #envelope-container.open #env-flap{ transform:rotateX(180deg); }
 #envelope-container:not(.open){ animation:envWobble 1.6s ease-in-out infinite; }
 @keyframes envWobble{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
 
-#message-paper{ background:linear-gradient(135deg,#fdf6ee,#f3e6f2); color:#3a2233; padding:35px 30px; border-radius:16px; position:relative; max-width:420px; box-shadow:0 18px 50px rgba(0,0,0,.6); opacity:0; transform:scale(.5); transition:all .9s ease; border:4px solid var(--wine); display:none; }
+/* Dev Sürpriz Kartı */
+#message-paper{ background:linear-gradient(135deg,#fdf6ee,#f3e6f2); color:#3a2233; padding:25px 20px; border-radius:16px; position:relative; width:340px; box-shadow:0 20px 60px rgba(0,0,0,.7); opacity:0; transform:scale(.5); transition:all .9s ease; border:4px solid var(--wine); display:none; text-align:center; }
 #message-paper.show{ opacity:1; transform:scale(1); }
-#message-paper h1{ font-family:'Great Vibes',cursive; color:var(--wine); font-size:36px; margin:0 0 12px; }
-#message-paper p{ line-height:1.6; font-size:16px; margin:0 0 12px; font-weight:500;}
-.corner{ position:absolute; font-size:40px; filter:drop-shadow(1px 4px 4px rgba(0,0,0,.3)); }
-.c1{ top:-22px; left:-20px; } .c2{ top:-22px; right:-20px; transform:scaleX(-1); }
-.c3{ bottom:-22px; left:-20px; transform:scaleY(-1); } .c4{ bottom:-22px; right:-20px; transform:scale(-1,-1); }
+#message-paper h1{ font-family:'Great Vibes',cursive; color:var(--wine); font-size:34px; margin:0 0 10px; line-height:1.1;}
+#message-paper p{ line-height:1.5; font-size:15px; margin:0 0 14px; font-weight:700;}
+
+/* Kartın İçindeki Pasta (Doğrudan Yazılı) */
+#card-cake-container{ position:relative; width:200px; height:200px; margin:0 auto; background:#d4a373; border-radius:50%; box-shadow:inset 0 0 15px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
+#card-inner-cream { position:absolute; inset:12px; border-radius:50%; background:var(--cocoa); box-shadow:inset 0 0 25px rgba(0,0,0,0.9); display:flex; align-items:center; justify-content:center; }
+#card-cake-text{ font-family:'Great Vibes', cursive; font-size:28px; color:var(--wine); white-space:normal; line-height:1.1; text-shadow:0 1px 2px rgba(255,255,255,.3); margin:0; z-index:2;}
+
+/* Mum */
+#flame { position:absolute; top:-20px; left:50%; transform:translateX(-50%); width:16px; height:24px; background:radial-gradient(ellipse at bottom, #ffeb3b 20%, #ff9800 60%, transparent 100%); border-radius:50% 50% 20% 20%; box-shadow:0 0 15px #ff9800, 0 0 30px #ffeb3b; animation:flicker 0.2s infinite alternate; cursor:pointer; z-index:10;}
+#placed-candle { position:absolute; top:20%; left:80%; transform:translate(-50%, -50%); font-size:36px; z-index:5; filter:drop-shadow(0 4px 4px rgba(0,0,0,0.6));}
+@keyframes flicker { 0% {transform:translateX(-50%) scale(1) rotate(-2deg); opacity:0.9;} 100% {transform:translateX(-50%) scale(1.1) rotate(2deg); opacity:1;} }
+#blow-btn{ margin-top:14px; padding:10px 24px; font-size:15px; font-weight:700; font-family:inherit; background:var(--wine); border:none; border-radius:24px; color:#fff; box-shadow:0 4px 10px rgba(0,0,0,0.4); display:inline-block; cursor:pointer; }
+
+.corner{ position:absolute; font-size:32px; filter:drop-shadow(1px 4px 4px rgba(0,0,0,.3)); }
+.c1{ top:-16px; left:-16px; } .c2{ top:-16px; right:-16px; transform:scaleX(-1); }
+.c3{ bottom:-16px; left:-16px; transform:scaleY(-1); } .c4{ bottom:-16px; right:-16px; transform:scale(-1,-1); }
 
 .confetti, .rise-emoji, .glow-burst { position:fixed; z-index:300; pointer-events:none; }
 @keyframes confettiBurst{ 0%{transform:translate(0,0) rotate(0deg);opacity:1;} 65%{transform:translate(var(--dx),var(--dy)) rotate(calc(var(--spin) * .6));opacity:1;} 100%{transform:translate(var(--dx),calc(var(--dy) + 300px)) rotate(var(--spin));opacity:0;} }
@@ -203,7 +225,7 @@ button.main-btn:disabled{ opacity:.35; }
 <div id="scene">
   <div id="chat-screen" class="screen">
     <div class="chat-avatar">🧜‍♀️</div>
-    <div class="chat-line" id="chat-line-text">Merhaba! Ben deniz kızıyım. Seninle tanışmak isterim, adın ne?</div>
+    <div class="chat-line" id="chat-line-text">Merhaba! Canımız çok tatlı çekti, birlikte harika bir Tiramisu yapalım mı? Öncelikle adın ne?</div>
     <div class="chat-input-row">
       <input type="text" id="chat-input" class="chat-input" placeholder="Adını yaz...">
       <button class="chat-send" onclick="submitChat()">➤</button>
@@ -216,7 +238,7 @@ button.main-btn:disabled{ opacity:.35; }
       <div id="dlg-text">…</div>
     </div>
     <div id="stage-area">
-      <!-- 1. Kase İstasyonu (Yumurta, Un, Şeker, Kakao) -->
+      <!-- 1. Kase İstasyonu (Hamur İçin) -->
       <div id="bowl-station" class="stage-panel hidden">
         <div id="egg-drag-zone" class="hidden"><div id="egg">🥚</div></div>
         <div class="bowl-wrap">
@@ -225,54 +247,63 @@ button.main-btn:disabled{ opacity:.35; }
             <div class="shaker-col"><div class="shaker" id="flour-shaker" onclick="tapShaker('flour')">🌾</div><div class="mini-progress"><div class="mini-progress-fill" id="flour-fill"></div></div></div>
             <div class="shaker-col"><div class="shaker" id="cocoa-shaker" onclick="tapShaker('cocoa')">🍫</div><div class="mini-progress"><div class="mini-progress-fill" id="cocoa-fill"></div></div></div>
           </div>
-          <div class="mixer" id="mixer"><div class="mixer-body"></div><div class="mixer-beaters"><div class="mixer-beater"></div><div class="mixer-beater"></div></div></div>
-          <div class="bowl" id="main-bowl"><div class="bowl-content" id="main-bowl-fill"></div><div class="egg-yolk-drop" id="yolk-drop"></div></div>
+          <div class="mixer" id="mixer">
+            <div class="mixer-handle"></div>
+            <div class="mixer-body"><div class="mixer-vent"></div><button id="mixer-power" class="mixer-power" onclick="toggleMixer('blender')">⏻</button></div>
+            <div class="mixer-beaters"><div class="mixer-beater"></div><div class="mixer-beater"></div></div>
+            <div class="mixer-cord"></div>
+            <div class="mixer-plug" id="mixer-plug">🔌</div>
+            <div class="wall-socket" id="wall-socket"><div class="socket-hole"></div><div class="socket-hole"></div></div>
+          </div>
+          <div class="bowl" id="main-bowl"><div class="bowl-content" id="main-bowl-fill"></div><div class="egg-white-drop" id="white-drop"></div><div class="egg-yolk-drop" id="yolk-drop"></div></div>
         </div>
       </div>
 
-      <!-- Fırın İstasyonu -->
-      <div id="oven-station" class="stage-panel hidden">
+      <!-- 2. Camlı Fırın İstasyonu -->
+      <div id="oven-station" class="stage-panel hidden" style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+        <div id="prep-pan"><div id="prep-pan-batter"></div></div>
         <div id="oven">
           <div id="oven-timer" class="hidden">⏳</div>
-          <div id="oven-body"><div id="oven-opening"><div id="oven-glow"></div><div id="pan"><div id="pan-batter"></div></div></div><div id="oven-door"></div></div>
+          <div id="oven-body">
+            <div id="oven-opening"><div id="oven-glow"></div><div id="pan"><div id="pan-batter"></div></div></div>
+            <div id="oven-door">
+                <div id="oven-window"><div id="glass-pan"></div><div id="glass-batter"></div><div id="oven-window-glass-flare"></div></div>
+            </div>
+          </div>
           <div id="oven-dial">🔥</div>
           <div id="oven-btns"></div>
         </div>
       </div>
+
+      <!-- 3. Krema İstasyonu (Yeni) -->
+      <div id="cream-station" class="stage-panel hidden">
+        <div id="cream-bowl-wrap">
+          <div id="cream-mixer" class="mixer" style="top:-58px;">
+            <div class="mixer-handle"></div>
+            <div class="mixer-body"><div class="mixer-vent"></div><button id="cream-mixer-power" class="mixer-power" onclick="toggleMixer('whisk')">⏻</button></div>
+            <div class="mixer-beaters"><div class="mixer-beater"></div><div class="mixer-beater"></div></div>
+            <div class="mixer-cord"></div>
+            <div class="mixer-plug" id="cream-mixer-plug">🔌</div>
+            <div class="wall-socket" id="cream-wall-socket"><div class="socket-hole"></div><div class="socket-hole"></div></div>
+          </div>
+          <div id="cream-bowl"><div id="cream-bowl-fill"></div></div>
+        </div>
+        <div id="cream-tray" class="hidden" style="position:absolute; bottom:-70px; left:0; right:0; display:flex; justify-content:center; gap:20px;"></div>
+      </div>
       
-      <!-- Pasta Montaj (Kedi Dili) İstasyonu -->
+      <!-- 4. Pasta Montaj İstasyonu -->
       <div id="cake-station" class="stage-panel hidden">
         <div id="cake-wrap">
           <div id="cake-stand"></div>
           <div id="sponge-1" class="tier"></div>
           <div id="cream-1" class="tier"></div>
           <div id="cocoa-dust"></div>
-          
-          <!-- Kedi dilleri -->
-          <div id="lf-wrap">
-            <div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div>
-          </div>
-          
-          <!-- Bordo Kurdele -->
-          <div id="ribbon-wrap">
-            <div class="bow-left"></div><div class="bow-right"></div><div class="bow-center"></div>
-          </div>
+          <div id="lf-wrap"><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div><div class="lf"></div></div>
+          <div id="ribbon-wrap"><div class="bow-left"></div><div class="bow-right"></div><div class="bow-center"></div></div>
         </div>
         <div id="build-tray" class="hidden"></div>
       </div>
       
-      <!-- Kuşbakışı ve Yazı İstasyonu -->
-      <div id="top-down-station">
-        <div id="top-cake-circle">
-          <div id="top-inner-cream"></div>
-          <div id="pipe-track">
-             <div id="cake-text-wrap"><div id="cake-text">Happy Birthday</div></div>
-             <div id="piping-bag">🎂</div>
-          </div>
-          <div id="placed-candle"><div id="flame"></div>🕯️</div>
-        </div>
-        <div id="candle-tray" class="hidden"><div id="candle-item">🕯️</div></div>
-      </div>
       <div id="progress-track" class="hidden"><div id="progress-fill"></div></div>
       <div id="hint-label"></div>
     </div>
@@ -281,9 +312,9 @@ button.main-btn:disabled{ opacity:.35; }
     </div>
   </div>
 
-  <!-- Final Ekranı -->
+  <!-- Final Ekranı (Doğum Günü Sürprizi) -->
   <div id="final-screen" class="screen hidden">
-    <h2 class="title" style="font-size:28px;">Dileğin Kabul Olsun! 🎉</h2>
+    <h2 class="title" style="font-size:28px;">Görev Tamamlandı! 🎉</h2>
     <div id="box-container" onclick="openBox()">
       <div id="box-base" class="box-part"></div>
       <div id="box-lid" class="box-part"><div class="box-seal">🐚</div></div>
@@ -292,39 +323,66 @@ button.main-btn:disabled{ opacity:.35; }
       <div id="env-body"><div id="env-seal">🐚</div></div>
       <div id="env-flap"></div>
     </div>
-    <p id="hint-text" class="sub" style="margin-top:20px; font-weight:700;">Zarfı açmak için dokun!</p>
+    <p id="hint-text" class="sub" style="margin-top:20px; font-weight:700;">Paketi açmak için dokun!</p>
+    
     <div id="message-paper">
       <div class="corner c1">🐚</div><div class="corner c2">⭐</div><div class="corner c3">🫧</div><div class="corner c4">🐚</div>
-      <h1 id="final-heading">Doğum Günün Kutlu Olsun!</h1>
-      <p id="final-body">Mesaj metni...</p>
-      <p style="text-align:right; margin-top:24px;"><strong>- Arkadaşın</strong></p>
-      <button class="main-btn" onclick="location.reload()" style="margin-top:16px;">Baştan İzle</button>
+      <h1 id="final-heading">Sürpriiiz! Doğum Günün Kutlu Olsun!</h1>
+      <p id="final-body">Sadece tatlı yapıyoruz sanıyordun değil mi? Bu lüks Tiramisu tamamen senin için hazırlandı!</p>
+      
+      <!-- Kart İçindeki Hazır Yazılı ve Mumlu Pasta -->
+      <div id="card-cake-container">
+         <div id="card-inner-cream"><p id="card-cake-text"></p></div>
+         <div id="placed-candle"><div id="flame"></div>🕯️</div>
+      </div>
+      
+      <p style="margin-top:14px;">Şimdi bir dilek tut ve mumu söndürmek için telefona üfle!</p>
+      <button id="blow-btn" onclick="manualBlow();">💨 Üfle</button>
     </div>
   </div>
 </div>
 
 <script>
-// MP3 yerine sentetik oyun sesleri (Hızlı yükleme ve %100 çalışma garantisi için)
+// ==== SENTETİK SES MOTORU ====
 let audioCtx=null;
 function getCtx(){ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
 function playTone(freq,dur,type,vol){ try{ const ctx=getCtx(); const osc=ctx.createOscillator(); const gain=ctx.createGain(); osc.type=type||'sine'; osc.frequency.value=freq; gain.gain.value=vol||.25; osc.connect(gain); gain.connect(ctx.destination); osc.start(); gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+dur); osc.stop(ctx.currentTime+dur); }catch(e){} }
+function createNoiseBuffer(durationSec){ const ctx=getCtx(); const bufferSize=Math.floor(ctx.sampleRate*durationSec); const buffer=ctx.createBuffer(1, bufferSize, ctx.sampleRate); const data=buffer.getChannelData(0); for(let i=0;i<bufferSize;i++) data[i]=Math.random()*2-1; return buffer; }
+// Yumuşak pudra/toz sesi için Lowpass filtresi eklendi
+function playPowderBurst(duration){ try{ const ctx=getCtx(); const src=ctx.createBufferSource(); src.buffer=createNoiseBuffer(duration); const filter=ctx.createBiquadFilter(); filter.type='lowpass'; filter.frequency.value=800; const gain=ctx.createGain(); gain.gain.value=0.25; src.connect(filter); filter.connect(gain); gain.connect(ctx.destination); src.start(); gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+duration); src.stop(ctx.currentTime+duration+0.05); }catch(e){} }
 function sPop(){ playTone(300,.08,'square',.2); setTimeout(()=>playTone(500,.1,'sine',.2),60); }
-function sCrack(){ playTone(180,.05,'square',.3); setTimeout(()=>playTone(120,.08,'sawtooth',.25),40); }
-function sPuff(){ playTone(150,.1,'noise',.2); }
+function sClick(){ playTone(800,.02,'square',.5); } // Mekanik Tık sesi
+function sCrack(){ playTone(1500,.025,'square',.22); setTimeout(()=>playTone(260,.07,'sawtooth',.3),25); }
+function sPuff(){ playPowderBurst(.2); }
 function sDing(){ [880,1174.7].forEach((f,i)=>setTimeout(()=>playTone(f,.4,'sine',.3),i*120)); }
 function sWin(){ [523.25,659.25,783.99,1046.5].forEach((f,i)=>setTimeout(()=>playTone(f,.25,'triangle',.3),i*150)); }
 function unlockAudio(){ playTone(0,0.01,'sine',0); }
 
-let userName=''; let chatPhase=0;
+// Motor ve Fırın Sesleri
+let motorNodes={};
+function startMotor(key, oscFreq, noiseFreq, oscVol, noiseVol){
+  if(motorNodes[key]) return;
+  try{ const ctx=getCtx(); const motor=ctx.createOscillator(); motor.type='sawtooth'; motor.frequency.value=oscFreq; const motorGain=ctx.createGain(); motorGain.gain.value=0.0001; motor.connect(motorGain); motorGain.connect(ctx.destination); const noiseSrc=ctx.createBufferSource(); noiseSrc.buffer=createNoiseBuffer(2); noiseSrc.loop=true; const bp=ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=noiseFreq; bp.Q.value=0.9; const noiseGain=ctx.createGain(); noiseGain.gain.value=0.0001; noiseSrc.connect(bp); bp.connect(noiseGain); noiseGain.connect(ctx.destination); const lfo=ctx.createOscillator(); lfo.frequency.value=9; const lfoGain=ctx.createGain(); lfoGain.gain.value=12; lfo.connect(lfoGain); lfoGain.connect(motor.frequency); motor.start(); noiseSrc.start(); lfo.start(); const now=ctx.currentTime; motorGain.gain.exponentialRampToValueAtTime(oscVol, now+0.18); noiseGain.gain.exponentialRampToValueAtTime(noiseVol, now+0.18); motorNodes[key]={motor,motorGain,noiseSrc,noiseGain,lfo}; }catch(e){}
+}
+function stopMotor(key){
+  const n=motorNodes[key]; if(!n) return;
+  try{ const ctx=getCtx(); const now=ctx.currentTime; n.motorGain.gain.exponentialRampToValueAtTime(0.0001, now+0.15); n.noiseGain.gain.exponentialRampToValueAtTime(0.0001, now+0.15); setTimeout(()=>{ try{n.motor.stop(); n.noiseSrc.stop(); n.lfo.stop();}catch(e){} },200); }catch(e){}
+  delete motorNodes[key];
+}
+
+let ovenHumNode=null;
+function startOvenHum(){ try{ const ctx=getCtx(); const osc=ctx.createOscillator(); osc.type='sine'; osc.frequency.value=85; const gain=ctx.createGain(); gain.gain.value=0.0001; osc.connect(gain); gain.connect(ctx.destination); osc.start(); gain.gain.exponentialRampToValueAtTime(0.05, ctx.currentTime+0.3); ovenHumNode={osc,gain}; }catch(e){} }
+function stopOvenHum(){ if(!ovenHumNode) return; try{ const ctx=getCtx(); const {osc,gain}=ovenHumNode; gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+0.3); setTimeout(()=>{ try{osc.stop();}catch(e){} },350); }catch(e){} ovenHumNode=null; }
+function sOvenDoor(){ playTone(150,.15,'sawtooth',.12); }
+
+// ==== GENEL KONTROLLER ====
+let userName='';
 function submitChat(){
   const input=document.getElementById('chat-input'); const val=input.value.trim(); if(!val) return; sPop();
-  if(chatPhase===0){ userName=val.split(' ')[0]; document.getElementById('chat-line-text').innerHTML=userName+', naber? Nasılsın bugün?'; input.value=''; input.placeholder='Cevabını yaz...'; chatPhase=1;
-  } else if(chatPhase===1){
-    const lower=val.toLocaleLowerCase('tr');
-    let reply = /iyi|güzel|harika|süper|mutlu|keyifli/.test(lower) ? 'Harika! 🥳 O zaman lüks bir Charlotte Tiramisu yapalım.' : 'Üzüldüm buna '+userName+'. Umarım yapacağımız bu Tiramisu içini ısıtır 💗';
-    document.getElementById('chat-line-text').innerHTML=reply; document.querySelector('.chat-input-row').classList.add('hidden');
-    setTimeout(()=>{ unlockAudio(); document.getElementById('chat-screen').classList.add('hidden'); document.getElementById('game-screen').classList.remove('hidden'); document.getElementById('game-screen').style.display='flex'; goIntro(); }, 2000);
-  }
+  userName=val.split(' ')[0];
+  document.getElementById('chat-line-text').innerHTML='Harika! Hadi seninle o efsane pastamızı yapmaya başlayalım.';
+  document.querySelector('.chat-input-row').classList.add('hidden');
+  setTimeout(()=>{ unlockAudio(); document.getElementById('chat-screen').classList.add('hidden'); document.getElementById('game-screen').classList.remove('hidden'); document.getElementById('game-screen').style.display='flex'; goIntro(); }, 2000);
 }
 document.getElementById('chat-input').addEventListener('keydown',(e)=>{ if(e.key==='Enter') submitChat(); });
 
@@ -336,12 +394,14 @@ function showPanel(id){ document.querySelectorAll('.stage-panel').forEach(p=>p.c
 function setNextBtn(label, enabled, visible){ nextBtn.innerText=label; nextBtn.disabled=!enabled; nextBtn.classList.toggle('hidden', visible===false); }
 function onNextClick(){ if(currentStageHandler) currentStageHandler(); }
 
-function setupDragProgress(zoneEl, target, onMove, onDone){
+function setupDragProgress(zoneEl, target, onMove, onDone, activeFn){
   let dragging=false, lx=0, ly=0, total=0, done=false;
   function pos(e){ return e.touches? {x:e.touches[0].clientX,y:e.touches[0].clientY} : {x:e.clientX,y:e.clientY}; }
   zoneEl.onpointerdown=(e)=>{ dragging=true; const p=pos(e); lx=p.x; ly=p.y; };
   const moveHandler = (e)=>{
-    if(!dragging||done) return; const p=pos(e); total+=Math.hypot(p.x-lx, p.y-ly); lx=p.x; ly=p.y;
+    if(!dragging||done) return; const p=pos(e);
+    if(activeFn && !activeFn()){ lx=p.x; ly=p.y; return; }
+    total+=Math.hypot(p.x-lx, p.y-ly); lx=p.x; ly=p.y;
     const pct=Math.min(100, total/target*100); onMove(pct); progressFill.style.width=pct+'%';
     if(pct>=100 && !done){ done=true; cleanup(); onDone(); }
   };
@@ -351,20 +411,17 @@ function setupDragProgress(zoneEl, target, onMove, onDone){
   progressTrack.classList.remove('hidden'); progressFill.style.width='0%';
 }
 
-// ==== OYUN AKIŞI BAŞLIYOR ====
+// ==== OYUN AKIŞI ====
 
-// 1. AŞAMA: Yumurta Kırma
+// 1. Yumurta
 function goIntro(){
   showPanel(null); setHint(''); progressTrack.classList.add('hidden');
-  setDialogue(userName+', Tiramisu hamuru için önce <b>yumurtayı</b> kaseye kıralım!'); setNextBtn('Tamam →', true, true); currentStageHandler=()=>{ goEgg(); };
+  setDialogue('Kek hamuru için önce <b>yumurtayı</b> kaseye kıralım!'); setNextBtn('Tamam →', true, true); currentStageHandler=()=>{ goEgg(); };
 }
-
 function goEgg(){
   showPanel('bowl-station'); document.getElementById('egg-drag-zone').classList.remove('hidden');
-  const egg=document.getElementById('egg'), bowl=document.getElementById('main-bowl');
-  setHint('Yumurtayı kaseye sürükle'); setNextBtn('Devam Et →', false, true);
-  let startX=0, startY=0, dragging=false;
-  function pos(e){ return e.touches? {x:e.touches[0].clientX,y:e.touches[0].clientY} : {x:e.clientX,y:e.clientY}; }
+  const egg=document.getElementById('egg'), bowl=document.getElementById('main-bowl'); setHint('Yumurtayı kaseye sürükle'); setNextBtn('Devam Et →', false, true);
+  let startX=0, startY=0, dragging=false; function pos(e){ return e.touches? {x:e.touches[0].clientX,y:e.touches[0].clientY} : {x:e.clientX,y:e.clientY}; }
   egg.onpointerdown=(e)=>{ dragging=true; const p=pos(e); const rect=egg.getBoundingClientRect(); startX=p.x-rect.left; startY=p.y-rect.top; egg.style.position='fixed'; egg.style.zIndex=500; egg.classList.add('drag-squash'); };
   window.addEventListener('pointermove',(e)=>{ if(!dragging) return; const p=pos(e); egg.style.left=(p.x-startX)+'px'; egg.style.top=(p.y-startY)+'px'; });
   window.addEventListener('pointerup',(e)=>{
@@ -372,89 +429,152 @@ function goEgg(){
     const p=pos(e), brect=bowl.getBoundingClientRect(), bx=brect.left+brect.width/2, by=brect.top+brect.height/2;
     if(Math.hypot(p.x-bx, p.y-by)<120){
       egg.classList.add('cracking'); sCrack();
-      setTimeout(()=>{ egg.style.display='none'; document.getElementById('yolk-drop').classList.add('show'); document.getElementById('main-bowl-fill').style.height='15%'; sPop(); setHint('Kırıldı!'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goShaker(); }; }, 320);
+      setTimeout(()=>{ egg.style.display='none'; document.getElementById('main-bowl-fill').style.height='15%'; document.getElementById('white-drop').classList.add('show'); setTimeout(()=>document.getElementById('yolk-drop').classList.add('show'),120); sPop(); setHint('Kırıldı!'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goShaker(); }; }, 320);
     } else { egg.style.left=''; egg.style.top=''; egg.style.position='absolute'; egg.style.transform='translateX(-50%)'; }
   });
 }
 
-// 2. AŞAMA: Malzemeleri Ekleme
+// 2. Malzemeler (Yumuşak Toz Sesi)
 let sCount=0, fCount=0, cCount=0;
 function goShaker(){
   document.getElementById('egg-drag-zone').classList.add('hidden'); document.getElementById('shaker-row').classList.remove('hidden');
-  setHint('Şeker, un ve kakaoyu ekle'); setDialogue('Şimdi <b>şeker</b>, <b>un</b> ve Tiramisu kekinin sırrı <b>kakaoyu</b> ekleyelim!'); setNextBtn('Devam Et →', false, true);
+  setHint('Şeker, un ve kakaoyu ekle'); setDialogue('Şimdi <b>şeker</b>, <b>un</b> ve kekin rengini verecek <b>kakaoyu</b> ekleyelim!'); setNextBtn('Devam Et →', false, true);
 }
 function tapShaker(k){
-  const el=document.getElementById(k+'-shaker'); el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); playTone(800,.05,'sine',.1);
+  const el=document.getElementById(k+'-shaker'); el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
+  playPowderBurst(.2); // Yumuşak pudra sesi
   const rect=el.getBoundingClientRect();
-  for(let i=0;i<4;i++){ const p=document.createElement('div'); p.className='powder-burst'; p.innerText=k==='cocoa'?'🟤':(k==='sugar'?'⚪':'🌾'); p.style.left=(rect.left+rect.width/2)+'px'; p.style.top=(rect.bottom-10)+'px'; p.style.setProperty('--pdx',(Math.random()*40-20)+'px'); document.body.appendChild(p); setTimeout(()=>p.remove(),700); }
+  for(let i=0;i<4;i++){ const p=document.createElement('div'); p.className='powder-burst'; p.innerText=k==='cocoa'?'🟤':(k==='sugar'?'⚪':'🌾'); p.style.left=(rect.left+rect.width/2)+'px'; p.style.top=(rect.bottom-10)+'px'; p.style.setProperty('--pdx',(Math.random()*40-20)+'px'); document.body.appendChild(p); setTimeout(()=>p.remove(),800); }
   if(k==='sugar' && sCount<3) { sCount++; document.getElementById('sugar-fill').style.width=(sCount/3*100)+'%'; }
   if(k==='flour' && fCount<3) { fCount++; document.getElementById('flour-fill').style.width=(fCount/3*100)+'%'; }
   if(k==='cocoa' && cCount<3) { cCount++; document.getElementById('cocoa-fill').style.width=(cCount/3*100)+'%'; }
   document.getElementById('main-bowl-fill').style.height=(15+((sCount+fCount+cCount)/9*30))+'%';
-  if(sCount>=3 && fCount>=3 && cCount>=3){ sPop(); setHint('Malzemeler tamam!'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goMix(); }; }
+  if(sCount>=3 && fCount>=3 && cCount>=3){ sPop(); setHint('Malzemeler tamam!'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goMix('blender'); }; }
 }
 
-// 3. AŞAMA: Hamuru Çırpma
-function goMix(){
-  document.getElementById('shaker-row').classList.add('hidden'); setHint('Kasenin üstünde parmağını dolaştırarak karıştır'); setDialogue('Şimdi hamuru pürüzsüz olana kadar mikserle <b>çırpalım!</b>'); setNextBtn('Karıştır →', false, false);
-  const mixer=document.getElementById('mixer'), bowl=document.getElementById('main-bowl'), fill=document.getElementById('main-bowl-fill');
-  setupDragProgress(bowl, 700, (pct)=>{ 
-      mixer.classList.add('spin'); bowl.classList.add('shake-bowl'); fill.style.background = pct<50 ? '#ecd9a8' : '#c69c6d'; 
+// 3. Çırpma (3x Uzatıldı, Tık sesi eklendi)
+let mixerStates={ blender:{on:false, plugged:false}, whisk:{on:false, plugged:false} };
+function toggleMixer(key){
+  if(!mixerStates[key].plugged){ setHint('Önce fişi prize tak!'); return; }
+  mixerStates[key].on = !mixerStates[key].on; 
+  sClick(); // Mekanik Tık sesi
+  const pfx=key==='blender'?'':'cream-';
+  document.getElementById(pfx+'mixer-power').classList.toggle('on', mixerStates[key].on);
+  if(!mixerStates[key].on){ stopMotor(key); document.getElementById(pfx+'mixer').classList.remove('spin'); document.getElementById(key==='blender'?'main-bowl':'cream-bowl').classList.remove('shake-bowl'); }
+}
+function goMix(type){
+  const isKek = type==='blender';
+  if(isKek) document.getElementById('shaker-row').classList.add('hidden');
+  const pfx = isKek?'':'cream-';
+  mixerStates[type].on=false; mixerStates[type].plugged=false; document.getElementById(pfx+'mixer-power').classList.remove('on');
+  const plug=document.getElementById(pfx+'mixer-plug'), socket=document.getElementById(pfx+'wall-socket');
+  plug.style.opacity='1'; plug.style.pointerEvents='auto'; socket.classList.remove('plugged');
+  setHint('Fişi prize sürükle'); setDialogue('Şimdi mikserin <b>fişini prize takalım.</b>'); setNextBtn('Karıştır →', false, false);
+  
+  plug.onpointerdown=(e)=>{
+    e.preventDefault(); const ghost=document.createElement('div'); ghost.className='drag-ghost'; ghost.innerHTML='🔌'; document.body.appendChild(ghost); plug.style.opacity='0.2';
+    function movePos(ev){ const p=ev.touches?ev.touches[0]:ev; ghost.style.left=p.clientX+'px'; ghost.style.top=p.clientY+'px'; } movePos(e);
+    function onMove(ev){ movePos(ev); }
+    function onUp(ev){
+      window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp);
+      const p=ev.changedTouches?ev.changedTouches[0]:ev; ghost.remove(); plug.style.opacity='1';
+      const rect=socket.getBoundingClientRect();
+      if(Math.hypot(p.clientX-(rect.left+rect.width/2), p.clientY-(rect.top+rect.height/2))<80) {
+        mixerStates[type].plugged=true; plug.style.opacity='.15'; plug.style.pointerEvents='none'; socket.classList.add('plugged'); sPop();
+        setHint('AÇ tuşuna bas, sonra kasenin üstünde parmağını dolaştır'); setDialogue('Fişi taktık! <b>AÇ</b> tuşuna basıp pürüzsüz olana kadar uzun uzun çırpalım.');
+      }
+    } window.addEventListener('pointermove', onMove, {passive:false}); window.addEventListener('pointerup', onUp);
+  };
+
+  const mixer=document.getElementById(pfx+'mixer'), bowl=document.getElementById(isKek?'main-bowl':'cream-bowl'), fill=document.getElementById(isKek?'main-bowl-fill':'cream-bowl-fill');
+  // Hedef 2100 yapılarak süre 3x uzatıldı
+  setupDragProgress(bowl, 2100, (pct)=>{
+      if(!motorNodes[type]){ startMotor(type,150,1000,0.05,0.09); }
+      mixer.classList.add('spin'); bowl.classList.add('shake-bowl'); 
+      if(isKek) fill.style.background = pct<50 ? '#ecd9a8' : '#c69c6d'; 
+      else { fill.style.height=(30+pct*0.4)+'%'; fill.style.background = pct<50 ? '#f3e9d8' : '#fdfbf7'; }
   }, ()=>{ 
-      mixer.classList.remove('spin'); bowl.classList.remove('shake-bowl'); sPop(); 
-      setHint('Hamur hazır!'); setNextBtn('Devam Et →', true, true); progressTrack.classList.add('hidden'); currentStageHandler=()=>{ goOvenOpen(); }; 
-  });
+      stopMotor(type); mixer.classList.remove('spin'); bowl.classList.remove('shake-bowl'); sPop(); 
+      if(isKek) { document.getElementById('yolk-drop').classList.remove('show'); document.getElementById('white-drop').classList.remove('show'); }
+      setHint('Hazır!'); setNextBtn('Devam Et →', true, true); progressTrack.classList.add('hidden'); 
+      currentStageHandler=()=>{ isKek ? goOvenOpen() : goAssemble(); }; 
+  }, ()=>mixerStates[type].on);
 }
 
-// 4. AŞAMA: Fırınlama
+// 4. Fırınlama (Cam Kapaklı Animasyon)
 function goOvenOpen(){
   showPanel('oven-station'); document.getElementById('pan-batter').style.height='0%';
-  setHint('Fırın kapağına dokun'); setDialogue(userName+', keki çırptık! Şimdi <b>fırına</b> verelim.'); setNextBtn('Devam Et →', false, true);
+  document.getElementById('prep-pan-batter').style.height='0%'; document.getElementById('prep-pan').style.opacity='1';
+  setHint('Harcı tepsiye dök'); setDialogue('Keki çırptık! Önce harcı <b>tepsiye dökelim.</b>'); setNextBtn('Devam Et →', false, true);
   const btns=document.getElementById('oven-btns'); btns.innerHTML='';
-  document.getElementById('oven').querySelector('#oven-body').onclick=()=>{
-    document.getElementById('oven').querySelector('#oven-body').onclick=null; document.getElementById('oven-door').classList.add('open'); playTone(140,.2,'sawtooth',.15); setHint('Harcı Dök');
-    const b1=document.createElement('button'); b1.className='small-btn'; b1.innerText='Harcı Dök';
-    b1.onclick=()=>{ document.getElementById('pan-batter').style.height='100%'; sPop(); b1.remove(); setHint('Kapağı Kapat'); const b2=document.createElement('button'); b2.className='small-btn'; b2.innerText='Kapat & Pişir'; b2.onclick=()=>{ b2.remove(); closeAndBake(); }; btns.appendChild(b2); }; btns.appendChild(b1);
+  const b1=document.createElement('button'); b1.className='small-btn'; b1.innerText='Harcı Dök';
+  b1.onclick=()=>{
+    document.getElementById('prep-pan-batter').style.height='100%'; sPop(); b1.remove();
+    setHint('Tepsiyi fırına koy'); setDialogue('Şimdi tepsiyi <b>fırına</b> yerleştirelim.');
+    const b2=document.createElement('button'); b2.className='small-btn'; b2.innerText='Fırına Koy';
+    b2.onclick=()=>{
+      b2.remove(); document.getElementById('oven-door').classList.add('open'); sOvenDoor();
+      setTimeout(()=>{
+        document.getElementById('prep-pan').style.opacity='0'; document.getElementById('pan-batter').style.height='100%'; sPop();
+        setTimeout(closeAndBake, 450);
+      }, 500);
+    };
+    btns.appendChild(b2);
   };
+  btns.appendChild(b1);
 }
 
 function closeAndBake(){
-  document.getElementById('oven-door').classList.remove('open'); playTone(140,.2,'sawtooth',.15);
+  const door = document.getElementById('oven-door');
+  door.classList.remove('open'); sOvenDoor();
   setTimeout(()=>{
-    document.getElementById('oven-glow').classList.add('on'); const timer=document.getElementById('oven-timer'); timer.classList.remove('hidden'); let t=4; timer.innerText='⏳ '+t; setHint('Pişiyor...');
+    door.classList.add('baking'); // Camdan pişmeyi gösteren animasyon başlar
+    document.getElementById('oven-glow').classList.add('on'); const timer=document.getElementById('oven-timer'); timer.classList.remove('hidden'); let t=6; timer.innerText='⏳ '+t; setHint('Pişiyor...');
+    startOvenHum();
     const iv=setInterval(()=>{ t--; timer.innerText='⏳ '+t;
       if(t<=0){ 
-          clearInterval(iv); timer.innerText='🎂'; document.getElementById('oven-glow').classList.remove('on'); document.getElementById('oven-door').classList.add('open'); sDing();
+          clearInterval(iv); stopOvenHum(); timer.innerText='🎂'; door.classList.remove('baking'); document.getElementById('oven-glow').classList.remove('on'); door.classList.add('open'); sOvenDoor(); sDing();
           for(let i=0;i<4;i++){ let s=document.createElement('div'); s.className='smoke-particle'; s.style.setProperty('--sx',(Math.random()*40-20)+'px'); document.getElementById('oven-opening').appendChild(s); }
-          setHint('Kek pişti!'); setDialogue('Şimdi pastamızı ahşap standın üzerinde <b>kedi dilleriyle</b> birleştirelim.'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goAssemble(); };
+          setHint('Kek pişti!'); setDialogue('Kekimiz puf puf oldu. Şimdi <b>Krema yapımına</b> geçelim.'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goCreamIngredients(); };
       }
     },1000);
   }, 800);
 }
 
-// Ortak Sürükle-Bırak Motoru (Montaj Aşaması İçin)
-function makeDraggable(el, targetId, onSuccess){
-  el.onpointerdown=(e)=>{
-    e.preventDefault(); const ghost=document.createElement('div'); ghost.className='drag-ghost'; ghost.innerHTML=el.innerHTML; document.body.appendChild(ghost); el.style.opacity='0.2';
-    function movePos(ev){ const p=ev.touches?ev.touches[0]:ev; ghost.style.left=p.clientX+'px'; ghost.style.top=p.clientY+'px'; } movePos(e);
-    function onMove(ev){ movePos(ev); }
-    function onUp(ev){
-      window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp);
-      const p=ev.changedTouches?ev.changedTouches[0]:ev; ghost.remove(); el.style.opacity='1';
-      const rect=document.getElementById(targetId).getBoundingClientRect();
-      if(Math.hypot(p.clientX-(rect.left+rect.width/2), p.clientY-(rect.top+rect.height/2))<150) { onSuccess(); }
-    } window.addEventListener('pointermove', onMove, {passive:false}); window.addEventListener('pointerup', onUp);
-  };
+// 5. Yeni Krema Aşaması
+function goCreamIngredients(){
+  showPanel('cream-station');
+  document.getElementById('cream-bowl-fill').style.height='0%'; document.getElementById('cream-bowl-fill').style.background='#fff';
+  const tray = document.getElementById('cream-tray'); tray.innerHTML=''; tray.classList.remove('hidden');
+  setHint('Mascarpone ve Pudra Şekerini kaseye sürükle'); setDialogue('Temiz bir kase geldi. Orijinal lezzet için <b>Mascarpone</b> ve <b>Pudra Şekerini</b> ekleyelim.'); setNextBtn('Devam Et →', false, false);
+  
+  let added=0; const items=[{id:'masc', l:'Mascarpone', icon:'🧈'}, {id:'sugar', l:'Pudra Şekeri', icon:'🍚'}];
+  items.forEach(d => {
+    const el = document.createElement('div'); el.className='build-item ingr'; el.innerHTML=`<div class="shape">${d.icon}</div>${d.l}`; tray.appendChild(el);
+    el.onpointerdown=(e)=>{
+      e.preventDefault(); const ghost=document.createElement('div'); ghost.className='drag-ghost'; ghost.innerHTML=el.innerHTML; document.body.appendChild(ghost); el.style.opacity='0.2';
+      function movePos(ev){ const p=ev.touches?ev.touches[0]:ev; ghost.style.left=p.clientX+'px'; ghost.style.top=p.clientY+'px'; } movePos(e);
+      function onMove(ev){ movePos(ev); }
+      function onUp(ev){
+        window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp);
+        const p=ev.changedTouches?ev.changedTouches[0]:ev; ghost.remove(); el.style.opacity='1';
+        const rect=document.getElementById('cream-bowl').getBoundingClientRect();
+        if(Math.hypot(p.clientX-(rect.left+rect.width/2), p.clientY-(rect.top+rect.height/2))<120) {
+          el.classList.add('used'); added++; document.getElementById('cream-bowl-fill').style.height=(added*15)+'%'; playPowderBurst(.2);
+          if(added>=2){ tray.classList.add('hidden'); setDialogue('Malzemeler kasede! Şimdi mikserle bunu da uzun uzun <b>çırpalım.</b>'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goMix('whisk'); }; }
+        }
+      } window.addEventListener('pointermove', onMove, {passive:false}); window.addEventListener('pointerup', onUp);
+    };
+  });
 }
 
-// 5. AŞAMA: Montaj, Charlotte Tasarımı & Süslemeler
+// 6. Montaj
 let bStep=0;
 function goAssemble(){
   showPanel('cake-station'); document.getElementById('build-tray').classList.remove('hidden'); bStep=0;
-  setHint('Parçaları ahşap standa sürükle'); setDialogue('İlk olarak alt keki koyup <b>Espresso ile ıslatalım.</b>'); setNextBtn('Devam Et →', false, false);
+  setHint('Parçaları ahşap standa sürükle'); setDialogue('Şimdi parçaları birleştirip, keki <b>Espresso ile ıslatalım.</b>'); setNextBtn('Devam Et →', false, false);
   renderBuildTray();
 }
-
 function renderBuildTray(){
   const tray=document.getElementById('build-tray'); tray.innerHTML='';
   const defs=[ 
@@ -468,89 +588,84 @@ function renderBuildTray(){
   if(bStep<defs.length){
     const d=defs[bStep]; const item=document.createElement('div'); item.className='build-item '+d.c; item.innerHTML='<div class="shape">'+d.icon+'</div>'+d.l; tray.appendChild(item);
     
-    makeDraggable(item, 'cake-wrap', () => {
-      if(d.id==='soak-1') { document.getElementById('sponge-1').classList.add('soaked'); sPuff(); bStep++; renderBuildTray(); setDialogue('Şimdi mascarpone kremasını koyup spatulayla yay.');}
-      else if (d.id === 'cream-1') {
-          const cream = document.getElementById('cream-1');
-          cream.style.transition = 'none'; cream.style.opacity = '1'; cream.style.transform = 'translateX(-50%) scale(0.3)'; cream.style.borderRadius = '50%';
-          sPop(); tray.classList.add('hidden');
-          setHint('Parmağınla sağa sola sürükleyerek kremayı yay'); 
-          setupDragProgress(document.getElementById('cake-wrap'), 300, (pct) => {
-              cream.style.transform = `translateX(-50%) scaleX(${0.3 + (pct/100)*0.7}) scaleY(${0.3 + (pct/100)*0.7})`; cream.style.borderRadius = `${50 - (pct/100)*38}px`;
-          }, () => {
-              cream.style.transition = ''; cream.style.transform = ''; cream.style.borderRadius = ''; cream.classList.add('show'); sPop(); bStep++; progressTrack.classList.add('hidden');
-              setDialogue('Sıra Charlotte tasarımında: <b>Kedi Dili bisküvilerini</b> etrafına diz.'); tray.classList.remove('hidden'); renderBuildTray();
-          });
-      }
-      else if (d.id === 'lf-wrap') {
-          document.getElementById('lf-wrap').classList.add('show'); sPop(); bStep++; renderBuildTray(); setDialogue('Çok şık oldu! Dağılmaması için <b>Bordo Kurdeleyi</b> bağlayalım.');
-      }
-      else if (d.id === 'ribbon-wrap') {
-          document.getElementById('ribbon-wrap').classList.add('show'); sPop(); bStep++; renderBuildTray(); setDialogue('Son dokunuş: Üzerine bolca <b>Kakao</b> eleyelim.');
-      }
-      else if (d.id === 'cocoa-dust') {
-          document.getElementById('cocoa-dust').classList.add('show'); sPop(); bStep++; tray.classList.add('hidden');
-          setDialogue('Tiramisu hazır! Şimdi yazıyı yazmak için <b>Kamerayı yukarı alıyoruz...</b>'); setNextBtn('Yazıya Geç →', true, true); currentStageHandler=()=>{ transitionToTopDown(); };
-      }
-      else { document.getElementById(d.id).classList.add('show'); sPop(); bStep++; renderBuildTray(); }
-    });
+    item.onpointerdown=(e)=>{
+      e.preventDefault(); const ghost=document.createElement('div'); ghost.className='drag-ghost'; ghost.innerHTML=el.innerHTML=item.innerHTML; document.body.appendChild(ghost); item.style.opacity='0.2';
+      function movePos(ev){ const p=ev.touches?ev.touches[0]:ev; ghost.style.left=p.clientX+'px'; ghost.style.top=p.clientY+'px'; } movePos(e);
+      function onMove(ev){ movePos(ev); }
+      function onUp(ev){
+        window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp);
+        const p=ev.changedTouches?ev.changedTouches[0]:ev; ghost.remove(); item.style.opacity='1';
+        const rect=document.getElementById('cake-wrap').getBoundingClientRect();
+        if(Math.hypot(p.clientX-(rect.left+rect.width/2), p.clientY-(rect.top+rect.height/2))<150) {
+          if(d.id==='soak-1') { document.getElementById('sponge-1').classList.add('soaked'); sPuff(); bStep++; renderBuildTray(); setDialogue('Şimdi mascarpone kremasını koyup spatulayla yay.');}
+          else if (d.id === 'cream-1') {
+              const cream = document.getElementById('cream-1'); cream.style.transition = 'none'; cream.style.opacity = '1'; cream.style.transform = 'translateX(-50%) scale(0.3)'; cream.style.borderRadius = '50%';
+              sPop(); tray.classList.add('hidden'); setHint('Parmağınla sağa sola sürükleyerek kremayı yay'); 
+              setupDragProgress(document.getElementById('cake-wrap'), 300, (pct) => { cream.style.transform = `translateX(-50%) scaleX(${0.3 + (pct/100)*0.7}) scaleY(${0.3 + (pct/100)*0.7})`; cream.style.borderRadius = `${50 - (pct/100)*38}px`; }, () => { cream.style.transition = ''; cream.style.transform = ''; cream.style.borderRadius = ''; cream.classList.add('show'); sPop(); bStep++; progressTrack.classList.add('hidden'); setDialogue('Sıra Charlotte tasarımında: <b>Kedi Dili bisküvilerini</b> etrafına diz.'); tray.classList.remove('hidden'); renderBuildTray(); });
+          }
+          else if (d.id === 'lf-wrap') { document.getElementById('lf-wrap').classList.add('show'); sPop(); bStep++; renderBuildTray(); setDialogue('Çok şık oldu! Dağılmaması için <b>Bordo Kurdeleyi</b> bağlayalım.'); }
+          else if (d.id === 'ribbon-wrap') { document.getElementById('ribbon-wrap').classList.add('show'); sPop(); bStep++; renderBuildTray(); setDialogue('Son dokunuş: Üzerine bolca <b>Kakao</b> eleyelim.'); }
+          else if (d.id === 'cocoa-dust') {
+              document.getElementById('cocoa-dust').classList.add('show'); sPop(); bStep++; tray.classList.add('hidden');
+              // Sürpriz Finale Geçiş!
+              setDialogue('Harika bir iş çıkardık! Tiramisu hazır.'); setNextBtn('Tamamla →', true, true); currentStageHandler=()=>{ showSurpriseFinal(); };
+          }
+          else { document.getElementById(d.id).classList.add('show'); sPop(); bStep++; renderBuildTray(); }
+        }
+      } window.addEventListener('pointermove', onMove, {passive:false}); window.addEventListener('pointerup', onUp);
+    };
   }
 }
 
-// 6. AŞAMA: Kuşbakışı Yazı ve Mum
-function transitionToTopDown(){
-  document.getElementById('cake-wrap').style.opacity='0';
-  setTimeout(()=>{ document.getElementById('cake-wrap').style.display='none'; document.getElementById('top-down-station').classList.add('active'); goPipeText(); }, 500);
+// 7. SÜPRİZ FİNAL: Doğrudan Kutlama ve Hazır Yazılı Pasta
+function showSurpriseFinal(){
+  document.getElementById('game-screen').style.display='none';
+  document.getElementById('final-screen').classList.remove('hidden'); sWin();
 }
 
-function goPipeText(){
-  document.getElementById('cake-text').innerHTML='Happy Birthday<br>'+userName; 
-  setDialogue('Krema torbasını <b>ekranda sağa doğru</b> kaydırarak Bordo renkli yazıyı tamamla!'); setNextBtn('Yaz →', false, false);
-  const track=document.getElementById('pipe-track'), bag=document.getElementById('piping-bag'), textWrap=document.getElementById('cake-text-wrap'); textWrap.style.clipPath='inset(0 100% 0 0)'; setHint('Sola dokun ve sağa kaydır');
-  let dragging=false; function pos(e){ return e.touches? {x:e.touches[0].clientX} : {x:e.clientX}; }
-  function start(e){ e.preventDefault(); dragging=true; }
-  function move(e){
-    if(!dragging) return; const rect=track.getBoundingClientRect(), p=pos(e); let pct=((p.x-rect.left)/rect.width)*100; pct=Math.max(0,Math.min(100,pct));
-    textWrap.style.clipPath='inset(0 '+(100-pct)+'% 0 0)'; bag.style.left=pct+'%'; if(pct>=98){ dragging=false; finishPiping(); }
-  }
-  function end(){ dragging=false; }
-  track.addEventListener('pointerdown', start); window.addEventListener('pointermove', move, {passive:false}); window.addEventListener('pointerup', end);
-  function finishPiping(){
-    window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', end); track.removeEventListener('pointerdown', start);
-    document.getElementById('piping-bag').style.display='none'; sPop(); setHint('Muazzam!'); setDialogue('Şimdi mumu pastanın <b>tam ortasına</b> yerleştir!');
-    setNextBtn('Devam Et', false, false); setTimeout(goCandle, 800);
-  }
+function openBox(){
+  const box=document.getElementById('box-container'); if(box.classList.contains('open')) return; box.classList.add('open'); sPop();
+  document.getElementById('card-cake-text').innerHTML='Happy Birthday<br>'+userName;
+  setTimeout(()=>{ box.style.display='none'; document.getElementById('envelope-container').style.display='block'; document.getElementById('hint-text').innerText='Zarfı açmak için dokun!'; },1000);
 }
 
-function goCandle(){
-  const cTray=document.getElementById('candle-tray'), cItem=document.getElementById('candle-item'); cTray.classList.remove('hidden');
-  makeDraggable(cItem, 'top-cake-circle', ()=>{
-     cTray.style.display='none'; document.getElementById('placed-candle').style.display='block'; sPop(); activateMic();
-  });
+let candleBlown=false;
+function openEnvelope(){
+  const env=document.getElementById('envelope-container'); if(env.classList.contains('open')) return; env.classList.add('open'); sWin();
+  const rect=env.getBoundingClientRect(), cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
+  const glow=document.createElement('div'); glow.className='glow-burst'; glow.style.left=cx+'px'; glow.style.top=cy+'px'; document.body.appendChild(glow); setTimeout(()=>glow.remove(),950);
+  const sym=['🫧','✨','🐚','⭐'];
+  for(let i=0;i<45;i++){ const p=document.createElement('div'); p.className='rise-emoji'; p.innerText=sym[Math.floor(Math.random()*sym.length)]; p.style.fontSize=(14+Math.random()*18)+'px'; p.style.left=cx+'px'; p.style.top=cy+'px'; const angle=Math.random()*Math.PI*2, dist=80+Math.random()*220; p.style.setProperty('--dx',(Math.cos(angle)*dist)+'px'); p.style.setProperty('--dy',(Math.sin(angle)*dist-220)+'px'); p.style.animationDuration=(1.4+Math.random()*.6)+'s'; document.body.appendChild(p); setTimeout(()=>p.remove(),2200); }
+  
+  setTimeout(()=>{ 
+      env.style.display='none'; document.getElementById('hint-text').style.display='none'; 
+      const paper=document.getElementById('message-paper'); paper.style.display='block'; setTimeout(()=>paper.classList.add('show'),50); 
+      activateMic();
+  },900);
 }
+
+function extinguishCandle(){
+  if(candleBlown) return; candleBlown=true;
+  document.getElementById('flame').style.display='none'; document.getElementById('blow-btn').style.display='none'; sPop();
+  burstConfetti();
+}
+function manualBlow(){ extinguishCandle(); }
 
 async function activateMic(){
-  setHint('Dilek tut ve üfle! (Veya muma tıkla)'); setDialogue('Harika! Şimdi gözlerini kapat, bir dilek tut ve mumu söndürmek için <b>telefona üfle!</b>');
-  const flame=document.getElementById('flame'); let blown=false;
-  function extinguish(){
-    if(blown) return; blown=true; flame.style.display='none'; sPop();
-    setTimeout(()=>{ document.getElementById('game-screen').style.display='none'; document.getElementById('final-screen').classList.remove('hidden'); sWin(); burstConfetti(); }, 1000);
-  }
-  flame.onclick = extinguish; 
-  
+  candleBlown=false;
+  document.getElementById('flame').onclick = extinguishCandle;
   try {
     const stream = await navigator.mediaDevices.getUserMedia({audio:true});
     const ctx = getCtx(); const source = ctx.createMediaStreamSource(stream); const analyser = ctx.createAnalyser(); source.connect(analyser);
     analyser.fftSize = 256; const data = new Uint8Array(analyser.frequencyBinCount);
     function checkMic() {
-      if(blown) { stream.getTracks().forEach(t=>t.stop()); return; }
+      if(candleBlown) { stream.getTracks().forEach(t=>t.stop()); return; }
       analyser.getByteFrequencyData(data); let sum=0; for(let i=0;i<data.length;i++) sum+=data[i];
-      if((sum/data.length) > 50) { extinguish(); } else { requestAnimationFrame(checkMic); } 
+      if((sum/data.length) > 50) { extinguishCandle(); } else { requestAnimationFrame(checkMic); } 
     } checkMic();
-  } catch(e) { console.log('Mikrofon izni alınamadı, tıklama ile söndürülecek.'); }
+  } catch(e) { console.log('Mikrofon izni alınamadı, üfle butonuyla söndürülecek.'); }
 }
 
-// 7. AŞAMA: Final ve Zarf Açılışı
 function burstConfetti(){
   const colors=['#7a1f3d','#a8395c','#0d6b52','#e8c66b','#ffffff']; const cx=window.innerWidth/2, cy=window.innerHeight*0.35;
   for(let i=0;i<100;i++){
@@ -558,22 +673,6 @@ function burstConfetti(){
     if(!isStrip && Math.random()>.5) c.style.borderRadius='50%'; c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)]; c.style.left=cx+'px'; c.style.top=cy+'px';
     const angle=Math.random()*Math.PI*2, dist=100+Math.random()*300; c.style.setProperty('--dx',(Math.cos(angle)*dist)+'px'); c.style.setProperty('--dy',(Math.sin(angle)*dist-100)+'px'); c.style.setProperty('--spin',(Math.random()*720-360)+'deg'); c.style.animationDuration=(1.2+Math.random()*.8)+'s'; document.body.appendChild(c); setTimeout(()=>c.remove(),2200);
   }
-}
-
-function openBox(){
-  const box=document.getElementById('box-container'); if(box.classList.contains('open')) return; box.classList.add('open'); sPop();
-  document.getElementById('final-heading').innerText='İyi ki Doğdun '+userName+'!';
-  document.getElementById('final-body').innerText='Buraya '+userName+' için özel bir mesaj yazabilirsin. Bu pastayı tamamen kendi ellerimle, senin için hazırladım!';
-  setTimeout(()=>{ box.style.display='none'; document.getElementById('envelope-container').style.display='block'; document.getElementById('hint-text').innerText='Zarfı açmak için dokun!'; },1000);
-}
-
-function openEnvelope(){
-  const env=document.getElementById('envelope-container'); if(env.classList.contains('open')) return; env.classList.add('open'); sWin();
-  const rect=env.getBoundingClientRect(), cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
-  const glow=document.createElement('div'); glow.className='glow-burst'; glow.style.left=cx+'px'; glow.style.top=cy+'px'; document.body.appendChild(glow); setTimeout(()=>glow.remove(),950);
-  const sym=['🫧','✨','🐚','⭐'];
-  for(let i=0;i<45;i++){ const p=document.createElement('div'); p.className='rise-emoji'; p.innerText=sym[Math.floor(Math.random()*sym.length)]; p.style.fontSize=(14+Math.random()*18)+'px'; p.style.left=cx+'px'; p.style.top=cy+'px'; const angle=Math.random()*Math.PI*2, dist=80+Math.random()*220; p.style.setProperty('--dx',(Math.cos(angle)*dist)+'px'); p.style.setProperty('--dy',(Math.sin(angle)*dist-220)+'px'); p.style.animationDuration=(1.4+Math.random()*.6)+'s'; document.body.appendChild(p); setTimeout(()=>p.remove(),2200); }
-  setTimeout(()=>{ env.style.display='none'; document.getElementById('hint-text').style.display='none'; const paper=document.getElementById('message-paper'); paper.style.display='block'; setTimeout(()=>paper.classList.add('show'),50); },900);
 }
 </script>
 </body>
