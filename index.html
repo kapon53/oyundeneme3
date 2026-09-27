@@ -328,10 +328,49 @@ button.main-btn:disabled{ opacity:.35; }
       <h1 id="final-heading">Sürpriiiz! Doğum Günün Kutlu Olsun!</h1>
       <p id="final-body">Sadece tatlı yapıyoruz sanıyordun değil mi? Bu lüks Tiramisu tamamen senin için hazırlandı!</p>
       
-      <!-- Kart İçindeki Hazır Yazılı ve Mumlu Pasta -->
-      <div id="card-cake-container">
-         <div id="card-inner-cream"><p id="card-cake-text"></p></div>
-         <div id="placed-candle"><div id="flame"></div>🕯️</div>
+      <!-- Kart İçindeki Hazır Yazılı ve Mumlu Pasta + Çiçek -->
+      <div id="cake-and-flower" style="display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap;">
+        <div id="card-cake-container">
+           <div id="card-inner-cream"><p id="card-cake-text"></p></div>
+           <div id="placed-candle"><div id="flame"></div>🕯️</div>
+        </div>
+        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" style="width:118px; height:118px; filter:drop-shadow(0 10px 14px rgba(0,0,0,.4));">
+          <defs>
+            <radialGradient id="petalPink" cx="35%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="#ffe3ee"/>
+              <stop offset="100%" stop-color="#ef9dbd"/>
+            </radialGradient>
+            <radialGradient id="petalWhite" cx="35%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#f3e6dd"/>
+            </radialGradient>
+            <linearGradient id="wrapPaper" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#fbd0e2"/>
+              <stop offset="100%" stop-color="#f28fb4"/>
+            </linearGradient>
+          </defs>
+          <!-- sarma kağıdı -->
+          <path d="M38 118 L182 118 L150 212 L70 212 Z" fill="url(#wrapPaper)"/>
+          <path d="M38 118 L182 118 L166 204 L54 204 Z" fill="#fff" opacity=".18"/>
+          <!-- yapraklar -->
+          <ellipse cx="52" cy="92" rx="13" ry="27" fill="#5f9c6d" transform="rotate(-32 52 92)"/>
+          <ellipse cx="168" cy="92" rx="13" ry="27" fill="#5f9c6d" transform="rotate(32 168 92)"/>
+          <!-- arka sıra çiçekler -->
+          <circle cx="68" cy="78" r="29" fill="url(#petalWhite)"/>
+          <circle cx="152" cy="74" r="29" fill="url(#petalWhite)"/>
+          <circle cx="110" cy="58" r="27" fill="url(#petalPink)"/>
+          <!-- ön sıra çiçekler -->
+          <circle cx="97" cy="99" r="31" fill="url(#petalPink)"/>
+          <circle cx="132" cy="103" r="29" fill="url(#petalWhite)"/>
+          <circle cx="63" cy="114" r="25" fill="url(#petalPink)"/>
+          <circle cx="157" cy="114" r="23" fill="url(#petalWhite)"/>
+          <!-- yumuşak iç gölgeler (kırışık taç yaprak hissi) -->
+          <circle cx="97" cy="93" r="10" fill="#df7ea3" opacity=".5"/>
+          <circle cx="68" cy="76" r="8" fill="#e6d2c4" opacity=".5"/>
+          <circle cx="152" cy="72" r="8" fill="#e6d2c4" opacity=".5"/>
+          <circle cx="63" cy="110" r="7" fill="#df7ea3" opacity=".45"/>
+          <circle cx="157" cy="110" r="7" fill="#e6d2c4" opacity=".45"/>
+        </svg>
       </div>
       
       <p style="margin-top:14px;">Şimdi bir dilek tut ve mumu söndürmek için telefona üfle!</p>
