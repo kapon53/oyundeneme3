@@ -192,15 +192,27 @@ button.main-btn:disabled{ opacity:.35; }
 @keyframes envWobble{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
 
 /* Dev Sürpriz Kartı */
-#message-paper{ background:linear-gradient(135deg,#fdf6ee,#f3e6f2); color:#3a2233; padding:25px 20px; border-radius:16px; position:relative; width:340px; box-shadow:0 20px 60px rgba(0,0,0,.7); opacity:0; transform:scale(.5); transition:all .9s ease; border:4px solid var(--wine); display:none; text-align:center; }
+#message-paper{ background:linear-gradient(135deg,#fdf6ee,#f3e6f2); color:#3a2233; padding:25px 20px; border-radius:16px; position:relative; width:92%; max-width:420px; margin:0 auto; box-shadow:0 20px 60px rgba(0,0,0,.7); opacity:0; transform:scale(.5); transition:all .9s ease; border:4px solid var(--wine); display:none; text-align:center; }
 #message-paper.show{ opacity:1; transform:scale(1); }
 #message-paper h1{ font-family:'Great Vibes',cursive; color:var(--wine); font-size:34px; margin:0 0 10px; line-height:1.1;}
 #message-paper p{ line-height:1.5; font-size:15px; margin:0 0 14px; font-weight:700;}
 
-/* Kartın İçindeki Pasta (Doğrudan Yazılı) */
-#card-cake-container{ position:relative; width:240px; height:240px; margin:0 auto; background:#d4a373; border-radius:50%; box-shadow:inset 0 0 15px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
+/* Kartın İçindeki Pasta ve Çiçek (Sabit Font Büyüklüğü Eklendi) */
+#card-cake-container{ position:relative; width:240px; height:240px; margin:0 auto; background:#d4a373; border-radius:50%; box-shadow:inset 0 0 15px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; flex-shrink: 0;}
 #card-inner-cream { position:absolute; inset:12px; border-radius:50%; background:var(--cocoa); box-shadow:inset 0 0 25px rgba(0,0,0,0.9); display:flex; align-items:center; justify-content:center; }
-#card-cake-text{ font-family:'Great Vibes', cursive; color:#ffffff; white-space:normal; line-height:0.95; text-shadow:0 2px 6px rgba(0,0,0,.55); margin:0; z-index:2; padding:0 2px; width:100%; text-align:center;}
+#card-cake-text{ 
+  font-family:'Great Vibes', cursive; 
+  color:#ffffff; 
+  font-size:36px; /* Hatalı JS yerine güvenli sabit boyut */
+  line-height:1.2; 
+  text-shadow:0 2px 6px rgba(0,0,0,.55); 
+  margin:0; 
+  z-index:2; 
+  padding:0 10px; 
+  width:100%; 
+  text-align:center;
+  word-wrap: break-word; /* Çok uzun kelimeler olursa taşmasını engeller */
+}
 
 /* Mum */
 #flame { position:absolute; top:-20px; left:50%; transform:translateX(-50%); width:16px; height:24px; background:radial-gradient(ellipse at bottom, #ffeb3b 20%, #ff9800 60%, transparent 100%); border-radius:50% 50% 20% 20%; box-shadow:0 0 15px #ff9800, 0 0 30px #ffeb3b; animation:flicker 0.2s infinite alternate; cursor:pointer; z-index:10;}
@@ -328,58 +340,14 @@ button.main-btn:disabled{ opacity:.35; }
       <h1 id="final-heading">Laraa canım arkadaşımmm 🥳</h1>
       <p id="final-body">Doğum günün kutlu olsunn, sevdiklerinle nice mutlu seneleree! Yeni yaşın sana başarı, mutluluk, sağlık, huzur, para versinn. Senii çooooooooook seviyorum, iyi ki seninle tanışmışım, iyi ki benim arkadaşımsın. İnşallah beraber nice doğum günleri kutlarızzz🥳🫶🏻💐💐</p>
       
-      <!-- Kart İçindeki Hazır Yazılı ve Mumlu Pasta + Çiçek -->
-      <div id="cake-and-flower" style="display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin:16px 0; flex-wrap:wrap;">
+        <!-- Kart İçindeki Hazır Yazılı ve Mumlu Pasta -->
         <div id="card-cake-container">
            <div id="card-inner-cream"><p id="card-cake-text"><span id="cake-line1"></span><br><span id="cake-line2"></span></p></div>
            <div id="placed-candle"><div id="flame"></div>🕯️</div>
         </div>
-        <svg viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg" style="width:160px; height:174px; filter:drop-shadow(0 10px 14px rgba(0,0,0,.4));">
-          <defs>
-            <radialGradient id="petalPink" cx="35%" cy="30%" r="75%">
-              <stop offset="0%" stop-color="#ffe3ee"/>
-              <stop offset="100%" stop-color="#ea8fb2"/>
-            </radialGradient>
-            <radialGradient id="petalWhite" cx="35%" cy="30%" r="75%">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="100%" stop-color="#f0ded2"/>
-            </radialGradient>
-            <linearGradient id="wrapPaper" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#fcd7e6"/>
-              <stop offset="100%" stop-color="#ee83ad"/>
-            </linearGradient>
-          </defs>
-          <!-- huni şeklinde sarma kağıdı (buket konisi) -->
-          <path d="M25 140 L215 140 L165 250 L75 250 Z" fill="url(#wrapPaper)"/>
-          <path d="M25 140 L120 140 L95 250 L75 250 Z" fill="#fff" opacity=".22"/>
-          <path d="M120 140 L215 140 L165 250 L135 250 Z" fill="#000" opacity=".06"/>
-          <!-- kurdele -->
-          <rect x="35" y="165" width="170" height="16" fill="#c2185b" opacity=".85"/>
-          <circle cx="120" cy="173" r="13" fill="#a10f47"/>
-          <!-- yapraklar -->
-          <ellipse cx="45" cy="110" rx="15" ry="32" fill="#5f9c6d" transform="rotate(-35 45 110)"/>
-          <ellipse cx="195" cy="110" rx="15" ry="32" fill="#5f9c6d" transform="rotate(35 195 110)"/>
-          <ellipse cx="120" cy="70" rx="14" ry="30" fill="#6fae7a" transform="rotate(0 120 70)"/>
-          <!-- arka sıra çiçekler -->
-          <circle cx="70" cy="95" r="32" fill="url(#petalWhite)"/>
-          <circle cx="170" cy="90" r="33" fill="url(#petalWhite)"/>
-          <circle cx="120" cy="65" r="30" fill="url(#petalPink)"/>
-          <!-- orta sıra -->
-          <circle cx="95" cy="115" r="30" fill="url(#petalPink)"/>
-          <circle cx="150" cy="118" r="31" fill="url(#petalWhite)"/>
-          <!-- ön sıra çiçekler -->
-          <circle cx="60" cy="140" r="26" fill="url(#petalPink)"/>
-          <circle cx="180" cy="138" r="25" fill="url(#petalWhite)"/>
-          <circle cx="120" cy="145" r="28" fill="url(#petalWhite)"/>
-          <!-- kırışık taç yaprak dokusu -->
-          <circle cx="95" cy="108" r="11" fill="#d96793" opacity=".55"/>
-          <circle cx="120" cy="60" r="10" fill="#d96793" opacity=".5"/>
-          <circle cx="70" cy="90" r="9" fill="#e6d2c4" opacity=".55"/>
-          <circle cx="170" cy="85" r="9" fill="#e6d2c4" opacity=".55"/>
-          <circle cx="60" cy="134" r="8" fill="#d96793" opacity=".5"/>
-          <circle cx="120" cy="140" r="8" fill="#e6d2c4" opacity=".5"/>
-          <circle cx="180" cy="132" r="8" fill="#e6d2c4" opacity=".5"/>
-        </svg>
+        <!-- Buket Çiçek -->
+        <img src="27835.jpg" alt="Şakayık Buketi" style="width: 130px; height: auto; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.3); transform: rotate(5deg);">
       </div>
       
       <p style="margin-top:14px;">Şimdi bir dilek tut ve mumu söndürmek için telefona üfle!</p>
@@ -678,20 +646,6 @@ function openBox(){
   setTimeout(()=>{ box.style.display='none'; document.getElementById('envelope-container').style.display='block'; document.getElementById('hint-text').innerText='Zarfı açmak için dokun!'; },1000);
 }
 
-function fitCakeText(){
-  const el=document.getElementById('card-cake-text'), container=document.getElementById('card-inner-cream');
-  const l1=document.getElementById('cake-line1'), l2=document.getElementById('cake-line2');
-  const refSize=100;
-  el.style.whiteSpace='nowrap'; el.style.fontSize=refSize+'px';
-  const maxW=Math.max(l1.scrollWidth, l2.scrollWidth, 1);
-  const available=container.clientWidth - 20;
-  let newSize = refSize * (available / maxW);
-  newSize = Math.max(28, Math.min(newSize, 160));
-  el.style.fontSize = newSize+'px';
-  el.style.whiteSpace='normal';
-}
-window.addEventListener('resize', ()=>{ if(document.getElementById('cake-line2').textContent) fitCakeText(); });
-
 let candleBlown=false;
 function openEnvelope(){
   const env=document.getElementById('envelope-container'); if(env.classList.contains('open')) return; env.classList.add('open'); sWin();
@@ -703,7 +657,6 @@ function openEnvelope(){
   setTimeout(()=>{ 
       env.style.display='none'; document.getElementById('hint-text').style.display='none'; 
       const paper=document.getElementById('message-paper'); paper.style.display='block';
-      fitCakeText(); setTimeout(fitCakeText, 300);
       setTimeout(()=>paper.classList.add('show'),50); 
       activateMic();
       playSurpriseSong();
