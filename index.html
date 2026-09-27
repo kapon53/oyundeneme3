@@ -200,7 +200,7 @@ button.main-btn:disabled{ opacity:.35; }
 /* Kartın İçindeki Pasta (Doğrudan Yazılı) */
 #card-cake-container{ position:relative; width:240px; height:240px; margin:0 auto; background:#d4a373; border-radius:50%; box-shadow:inset 0 0 15px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
 #card-inner-cream { position:absolute; inset:12px; border-radius:50%; background:var(--cocoa); box-shadow:inset 0 0 25px rgba(0,0,0,0.9); display:flex; align-items:center; justify-content:center; }
-#card-cake-text{ font-family:'Great Vibes', cursive; font-size:144px; color:#ffffff; white-space:normal; line-height:0.9; text-shadow:0 2px 6px rgba(0,0,0,.55); margin:0; z-index:2; padding:0 2px;}
+#card-cake-text{ font-family:'Great Vibes', cursive; color:#ffffff; white-space:normal; line-height:0.95; text-shadow:0 2px 6px rgba(0,0,0,.55); margin:0; z-index:2; padding:0 2px; width:100%; text-align:center;}
 
 /* Mum */
 #flame { position:absolute; top:-20px; left:50%; transform:translateX(-50%); width:16px; height:24px; background:radial-gradient(ellipse at bottom, #ffeb3b 20%, #ff9800 60%, transparent 100%); border-radius:50% 50% 20% 20%; box-shadow:0 0 15px #ff9800, 0 0 30px #ffeb3b; animation:flicker 0.2s infinite alternate; cursor:pointer; z-index:10;}
@@ -331,7 +331,7 @@ button.main-btn:disabled{ opacity:.35; }
       <!-- Kart İçindeki Hazır Yazılı ve Mumlu Pasta + Çiçek -->
       <div id="cake-and-flower" style="display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap;">
         <div id="card-cake-container">
-           <div id="card-inner-cream"><p id="card-cake-text"></p></div>
+           <div id="card-inner-cream"><p id="card-cake-text"><span id="cake-line1"></span><br><span id="cake-line2"></span></p></div>
            <div id="placed-candle"><div id="flame"></div>🕯️</div>
         </div>
         <svg viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg" style="width:160px; height:174px; filter:drop-shadow(0 10px 14px rgba(0,0,0,.4));">
@@ -673,9 +673,24 @@ function showSurpriseFinal(){
 
 function openBox(){
   const box=document.getElementById('box-container'); if(box.classList.contains('open')) return; box.classList.add('open'); sPop();
-  document.getElementById('card-cake-text').innerHTML='Happy Birthday<br>'+userName;
+  document.getElementById('cake-line1').textContent='Happy Birthday';
+  document.getElementById('cake-line2').textContent=userName;
   setTimeout(()=>{ box.style.display='none'; document.getElementById('envelope-container').style.display='block'; document.getElementById('hint-text').innerText='Zarfı açmak için dokun!'; },1000);
 }
+
+function fitCakeText(){
+  const el=document.getElementById('card-cake-text'), container=document.getElementById('card-inner-cream');
+  const l1=document.getElementById('cake-line1'), l2=document.getElementById('cake-line2');
+  const refSize=100;
+  el.style.whiteSpace='nowrap'; el.style.fontSize=refSize+'px';
+  const maxW=Math.max(l1.scrollWidth, l2.scrollWidth, 1);
+  const available=container.clientWidth - 20;
+  let newSize = refSize * (available / maxW);
+  newSize = Math.max(28, Math.min(newSize, 160));
+  el.style.fontSize = newSize+'px';
+  el.style.whiteSpace='normal';
+}
+window.addEventListener('resize', ()=>{ if(document.getElementById('cake-line2').textContent) fitCakeText(); });
 
 let candleBlown=false;
 function openEnvelope(){
@@ -687,7 +702,9 @@ function openEnvelope(){
   
   setTimeout(()=>{ 
       env.style.display='none'; document.getElementById('hint-text').style.display='none'; 
-      const paper=document.getElementById('message-paper'); paper.style.display='block'; setTimeout(()=>paper.classList.add('show'),50); 
+      const paper=document.getElementById('message-paper'); paper.style.display='block';
+      fitCakeText(); setTimeout(fitCakeText, 300);
+      setTimeout(()=>paper.classList.add('show'),50); 
       activateMic();
       playSurpriseSong();
   },900);
