@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 <title>Deniz Kızının Pastası - Klasik Tiramisu</title>
+
+<!-- SÜRPRİZİ GİZLEYEN LİNK ÖNİZLEME AYARLARI -->
+<meta name="description" content="Beraber harika bir Tiramisu yapalım mı? Eğlenceli mutfak macerasına başlamak için tıkla!">
+<meta property="og:title" content="Deniz Kızının Pastası 🍰">
+<meta property="og:description" content="Beraber harika bir Tiramisu yapalım mı? Eğlenceli mutfak macerasına başlamak için tıkla!">
+<meta property="og:image" content="https://kapon53.github.io/oyundeneme3/27822.png">
+<meta property="og:url" content="https://kapon53.github.io/oyundeneme3/">
+<meta property="og:type" content="website">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
@@ -51,19 +60,19 @@ button.main-btn:disabled{ opacity:.35; }
 #dlg-text{ color:#fff; font-size:15px; line-height:1.4; padding-top:4px; }
 #dlg-text b{ color:var(--gold); }
 
-#stage-area{ position:relative; flex:1; display:flex; align-items:center; justify-content:center; z-index:5; perspective:1000px; }
+#stage-area{ position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:5; perspective:1000px; }
 #hint-label{ position:absolute; bottom:10px; left:0; right:0; text-align:center; color:#e6d9e2; font-size:14px; font-weight:700; z-index:6; text-shadow:0 2px 4px rgba(0,0,0,0.5); }
 #progress-track{ position:absolute; bottom:50px; left:50%; transform:translateX(-50%); width:240px; height:12px; border-radius:8px; background:rgba(255,255,255,.18); overflow:hidden; z-index:6; }
 #progress-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--wine-light),var(--gold)); transition:width 0.1s; }
 
 /* 1. Kase ve Malzemeler */
-.bowl-wrap{ position:relative; width:220px; height:220px; }
+.bowl-wrap{ position:relative; width:220px; height:160px; }
 .bowl{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:200px; height:120px; border-radius:0 0 100px 100px / 0 0 75px 75px; background:linear-gradient(180deg,#e9e3d6,#b8b09b); box-shadow:0 12px 24px rgba(0,0,0,.4), inset 0 -14px 20px rgba(0,0,0,.15); overflow:hidden; }
 .bowl-content{ position:absolute; left:0; right:0; bottom:0; height:0%; transition:height .4s ease, background .4s ease; background:#ecd9a8; }
 .shake-bowl{ animation:bowlShake 0.4s infinite alternate; }
 @keyframes bowlShake { 0%{transform:translateX(-52%) rotate(-2deg);} 100%{transform:translateX(-48%) rotate(2deg);} }
 
-#egg-drag-zone{ position:relative; width:250px; height:280px; }
+#egg-drag-zone{ position:relative; width:250px; height:100px; margin-bottom: 15px; }
 #egg{ position:absolute; top:0; left:50%; transform:translateX(-50%); font-size:78px; cursor:grab; filter:drop-shadow(2px 8px 8px rgba(0,0,0,.4)); touch-action:none; z-index:20; transition:transform 0.1s; }
 .drag-squash { transform: translateX(-50%) scale(1.1) scaleY(0.9) !important; cursor:grabbing !important; }
 #egg.cracking{ animation:eggCrack .35s ease; }
@@ -129,13 +138,13 @@ button.main-btn:disabled{ opacity:.35; }
 .small-btn{ padding:12px 20px; font-size:15px; font-weight:700; font-family:inherit; background:var(--wine); border:none; border-radius:24px; color:#fff; box-shadow:0 4px 10px rgba(0,0,0,0.4); cursor:pointer;}
 .small-btn:active{ transform:scale(0.95); }
 
-/* 3. Krema İstasyonu (Yeni) */
-#cream-bowl-wrap{ position:relative; width:220px; height:220px; }
+/* 3. Krema İstasyonu */
+#cream-bowl-wrap{ position:relative; width:220px; height:160px; }
 #cream-bowl{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:180px; height:110px; border-radius:0 0 90px 90px / 0 0 65px 65px; background:linear-gradient(180deg,#e8e8e8,#b0b0b0); box-shadow:0 12px 24px rgba(0,0,0,.4), inset 0 -10px 16px rgba(0,0,0,.2); overflow:hidden; }
 #cream-bowl-fill{ position:absolute; left:0; right:0; bottom:0; height:0%; background:#f3e9d8; transition:height .4s ease, background .4s ease; }
 
 /* 4. Pasta Montaj İstasyonu */
-#cake-wrap{ position:relative; width:280px; height:300px; transition: opacity 0.5s ease; }
+#cake-wrap{ position:relative; width:280px; height:240px; transition: opacity 0.5s ease; }
 #cake-stand{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:260px; height:30px; border-radius:50%; background:radial-gradient(ellipse at 50% 30%,#b58453,#694320); box-shadow:0 15px 30px rgba(0,0,0,.5); border-bottom:4px solid #4a2c11;} 
 .tier{ position:absolute; left:50%; transform:translateX(-50%) scale(.4); opacity:0; border-radius:20px; box-shadow:inset 0 -8px 14px rgba(0,0,0,.2), 0 6px 12px rgba(0,0,0,.3); transition:transform .5s cubic-bezier(.34,1.56,.64,1), opacity .4s ease, background 0.8s ease; }
 .tier.show{ transform:translateX(-50%) scale(1); opacity:1; }
@@ -197,13 +206,13 @@ button.main-btn:disabled{ opacity:.35; }
 #message-paper h1{ font-family:'Great Vibes',cursive; color:var(--wine); font-size:34px; margin:0 0 10px; line-height:1.1;}
 #message-paper p{ line-height:1.5; font-size:15px; margin:0 0 14px; font-weight:700;}
 
-/* Kartın İçindeki Pasta ve Çiçek (Sabit Font Büyüklüğü Eklendi) */
+/* Kartın İçindeki Pasta ve Çiçek */
 #card-cake-container{ position:relative; width:240px; height:240px; margin:0 auto; background:#d4a373; border-radius:50%; box-shadow:inset 0 0 15px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; flex-shrink: 0;}
 #card-inner-cream { position:absolute; inset:12px; border-radius:50%; background:var(--cocoa); box-shadow:inset 0 0 25px rgba(0,0,0,0.9); display:flex; align-items:center; justify-content:center; }
 #card-cake-text{ 
   font-family:'Great Vibes', cursive; 
   color:#ffffff; 
-  font-size:36px; /* Hatalı JS yerine güvenli sabit boyut */
+  font-size:36px; 
   line-height:1.2; 
   text-shadow:0 2px 6px rgba(0,0,0,.55); 
   margin:0; 
@@ -211,7 +220,7 @@ button.main-btn:disabled{ opacity:.35; }
   padding:0 10px; 
   width:100%; 
   text-align:center;
-  word-wrap: break-word; /* Çok uzun kelimeler olursa taşmasını engeller */
+  word-wrap: break-word; 
 }
 
 /* Mum */
@@ -249,7 +258,7 @@ button.main-btn:disabled{ opacity:.35; }
     </div>
     <div id="stage-area">
       <!-- 1. Kase İstasyonu (Hamur İçin) -->
-      <div id="bowl-station" class="stage-panel hidden">
+      <div id="bowl-station" class="stage-panel hidden" style="display:flex; flex-direction:column; align-items:center;">
         <div id="egg-drag-zone" class="hidden"><div id="egg">🥚</div></div>
         <div class="bowl-wrap">
           <div id="shaker-row" class="hidden">
@@ -286,7 +295,7 @@ button.main-btn:disabled{ opacity:.35; }
       </div>
 
       <!-- 3. Krema İstasyonu (Yeni) -->
-      <div id="cream-station" class="stage-panel hidden">
+      <div id="cream-station" class="stage-panel hidden" style="display:flex; flex-direction:column; align-items:center;">
         <div id="cream-bowl-wrap">
           <div id="cream-mixer" class="mixer" style="top:-58px;">
             <div class="mixer-handle"></div>
@@ -302,7 +311,7 @@ button.main-btn:disabled{ opacity:.35; }
       </div>
       
       <!-- 4. Pasta Montaj İstasyonu -->
-      <div id="cake-station" class="stage-panel hidden">
+      <div id="cake-station" class="stage-panel hidden" style="display:flex; flex-direction:column; align-items:center;">
         <div id="cake-wrap">
           <div id="cake-stand"></div>
           <div id="sponge-1" class="tier"></div>
@@ -337,8 +346,10 @@ button.main-btn:disabled{ opacity:.35; }
     
     <div id="message-paper">
       <div class="corner c1">🐚</div><div class="corner c2">⭐</div><div class="corner c3">🫧</div><div class="corner c4">🐚</div>
-      <h1 id="final-heading">Laraa canım arkadaşımmm 🥳</h1>
-      <p id="final-body">Doğum günün kutlu olsunn, sevdiklerinle nice mutlu seneleree! Yeni yaşın sana başarı, mutluluk, sağlık, huzur, para versinn. Senii çooooooooook seviyorum, iyi ki seninle tanışmışım, iyi ki benim arkadaşımsın. İnşallah beraber nice doğum günleri kutlarızzz🥳🫶🏻💐💐</p>
+      
+      <!-- İÇERİK JS İLE DOLDURULACAK, BÖYLECE INSTAGRAM OKUYAMAYACAK -->
+      <h1 id="final-heading"></h1>
+      <p id="final-body"></p>
       
       <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin:16px 0; flex-wrap:wrap;">
         <!-- Kart İçindeki Hazır Yazılı ve Mumlu Pasta -->
@@ -435,7 +446,8 @@ function goIntro(){
 }
 function goEgg(){
   showPanel('bowl-station'); document.getElementById('egg-drag-zone').classList.remove('hidden');
-  const egg=document.getElementById('egg'), bowl=document.getElementById('main-bowl'); setHint('Yumurtayı kaseye sürükle'); setNextBtn('Devam Et →', false, true);
+  const egg=document.getElementById('egg'), bowl=document.getElementById('main-bowl'); setHint('Yumurtayı kaseye sürükle'); 
+  setNextBtn('Devam Et →', false, false); // Buton gizlendi
   let startX=0, startY=0, dragging=false; function pos(e){ return e.touches? {x:e.touches[0].clientX,y:e.touches[0].clientY} : {x:e.clientX,y:e.clientY}; }
   egg.onpointerdown=(e)=>{ dragging=true; const p=pos(e); const rect=egg.getBoundingClientRect(); startX=p.x-rect.left; startY=p.y-rect.top; egg.style.position='fixed'; egg.style.zIndex=500; egg.classList.add('drag-squash'); };
   window.addEventListener('pointermove',(e)=>{ if(!dragging) return; const p=pos(e); egg.style.left=(p.x-startX)+'px'; egg.style.top=(p.y-startY)+'px'; });
@@ -444,7 +456,12 @@ function goEgg(){
     const p=pos(e), brect=bowl.getBoundingClientRect(), bx=brect.left+brect.width/2, by=brect.top+brect.height/2;
     if(Math.hypot(p.x-bx, p.y-by)<120){
       egg.classList.add('cracking'); sCrack();
-      setTimeout(()=>{ egg.style.display='none'; document.getElementById('main-bowl-fill').style.height='15%'; document.getElementById('white-drop').classList.add('show'); setTimeout(()=>document.getElementById('yolk-drop').classList.add('show'),120); sPop(); setHint('Kırıldı!'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goShaker(); }; }, 320);
+      setTimeout(()=>{ 
+        egg.style.display='none'; document.getElementById('main-bowl-fill').style.height='15%'; 
+        document.getElementById('white-drop').classList.add('show'); setTimeout(()=>document.getElementById('yolk-drop').classList.add('show'),120); 
+        sPop(); setHint('Kırıldı!'); 
+        setTimeout(() => { goShaker(); }, 1200); // OTOMATİK GEÇİŞ
+      }, 320);
     } else { egg.style.left=''; egg.style.top=''; egg.style.position='absolute'; egg.style.transform='translateX(-50%)'; }
   });
 }
@@ -453,7 +470,8 @@ function goEgg(){
 let sCount=0, fCount=0, cCount=0;
 function goShaker(){
   document.getElementById('egg-drag-zone').classList.add('hidden'); document.getElementById('shaker-row').classList.remove('hidden');
-  setHint('Şeker, un ve kakaoyu ekle'); setDialogue('Şimdi <b>şeker</b>, <b>un</b> ve kekin rengini verecek <b>kakaoyu</b> ekleyelim!'); setNextBtn('Devam Et →', false, true);
+  setHint('Şeker, un ve kakaoyu ekle'); setDialogue('Şimdi <b>şeker</b>, <b>un</b> ve kekin rengini verecek <b>kakaoyu</b> ekleyelim!'); 
+  setNextBtn('Devam Et →', false, false); // Buton gizlendi
 }
 function tapShaker(k){
   const el=document.getElementById(k+'-shaker'); el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
@@ -464,7 +482,11 @@ function tapShaker(k){
   if(k==='flour' && fCount<3) { fCount++; document.getElementById('flour-fill').style.width=(fCount/3*100)+'%'; }
   if(k==='cocoa' && cCount<3) { cCount++; document.getElementById('cocoa-fill').style.width=(cCount/3*100)+'%'; }
   document.getElementById('main-bowl-fill').style.height=(15+((sCount+fCount+cCount)/9*30))+'%';
-  if(sCount>=3 && fCount>=3 && cCount>=3){ sPop(); setHint('Malzemeler tamam!'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goMix('blender'); }; }
+  
+  if(sCount>=3 && fCount>=3 && cCount>=3){ 
+    sPop(); setHint('Malzemeler tamam!'); 
+    setTimeout(() => { goMix('blender'); }, 1000); // OTOMATİK GEÇİŞ
+  }
 }
 
 // 3. Çırpma
@@ -484,7 +506,8 @@ function goMix(type){
   mixerStates[type].on=false; mixerStates[type].plugged=false; document.getElementById(pfx+'mixer-power').classList.remove('on');
   const plug=document.getElementById(pfx+'mixer-plug'), socket=document.getElementById(pfx+'wall-socket');
   plug.style.opacity='1'; plug.style.pointerEvents='auto'; socket.classList.remove('plugged');
-  setHint('Fişi prize sürükle'); setDialogue('Şimdi mikserin <b>fişini prize takalım.</b>'); setNextBtn('Karıştır →', false, false);
+  setHint('Fişi prize sürükle'); setDialogue('Şimdi mikserin <b>fişini prize takalım.</b>'); 
+  setNextBtn('Karıştır →', false, false); // Buton gizlendi
   
   plug.onpointerdown=(e)=>{
     e.preventDefault(); const ghost=document.createElement('div'); ghost.className='drag-ghost'; ghost.innerHTML='🔌'; document.body.appendChild(ghost); plug.style.opacity='0.2';
@@ -510,7 +533,9 @@ function goMix(type){
   }, ()=>{ 
       stopMotor(type); mixer.classList.remove('spin'); bowl.classList.remove('shake-bowl'); sPop(); 
       if(isKek) { document.getElementById('yolk-drop').classList.remove('show'); document.getElementById('white-drop').classList.remove('show'); }
-      setHint('Hazır!'); setNextBtn('Devam Et →', true, true); progressTrack.classList.add('hidden'); 
+      setHint('Hazır!'); 
+      setNextBtn('Devam Et →', true, true); // İŞLEM BİTTİĞİNDE BUTON GÖRÜNSÜN
+      progressTrack.classList.add('hidden'); 
       currentStageHandler=()=>{ isKek ? goOvenOpen() : goAssemble(); }; 
   }, ()=>mixerStates[type].on);
 }
@@ -519,7 +544,8 @@ function goMix(type){
 function goOvenOpen(){
   showPanel('oven-station'); document.getElementById('pan-batter').style.height='0%';
   document.getElementById('prep-pan-batter').style.height='0%'; document.getElementById('prep-pan').style.opacity='1';
-  setHint('Harcı tepsiye dök'); setDialogue('Keki çırptık! Önce harcı <b>tepsiye dökelim.</b>'); setNextBtn('Devam Et →', false, true);
+  setHint('Harcı tepsiye dök'); setDialogue('Keki çırptık! Önce harcı <b>tepsiye dökelim.</b>'); 
+  setNextBtn('Devam Et →', false, false); // BUTON GİZLENDİ
   const btns=document.getElementById('oven-btns'); btns.innerHTML='';
   const b1=document.createElement('button'); b1.className='small-btn'; b1.innerText='Harcı Dök';
   b1.onclick=()=>{
@@ -549,7 +575,9 @@ function closeAndBake(){
       if(t<=0){ 
           clearInterval(iv); stopOvenHum(); timer.innerText='🎂'; door.classList.remove('baking'); document.getElementById('oven-glow').classList.remove('on'); door.classList.add('open'); sOvenDoor(); sDing();
           for(let i=0;i<4;i++){ let s=document.createElement('div'); s.className='smoke-particle'; s.style.setProperty('--sx',(Math.random()*40-20)+'px'); document.getElementById('oven-opening').appendChild(s); }
-          setHint('Kek pişti!'); setDialogue('Kekimiz puf puf oldu. Şimdi <b>Krema yapımına</b> geçelim.'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goCreamIngredients(); };
+          setHint('Kek pişti!'); setDialogue('Kekimiz puf puf oldu. Şimdi <b>Krema yapımına</b> geçelim.'); 
+          setNextBtn('Devam Et →', true, true); // KEK PİŞİNCE BUTON GERİ GELSİN
+          currentStageHandler=()=>{ goCreamIngredients(); };
       }
     },1000);
   }, 800);
@@ -560,7 +588,8 @@ function goCreamIngredients(){
   showPanel('cream-station');
   document.getElementById('cream-bowl-fill').style.height='0%'; document.getElementById('cream-bowl-fill').style.background='#fff';
   const tray = document.getElementById('cream-tray'); tray.innerHTML=''; tray.classList.remove('hidden');
-  setHint('Mascarpone ve Pudra Şekerini kaseye sürükle'); setDialogue('Temiz bir kase geldi. Orijinal lezzet için <b>Mascarpone</b> ve <b>Pudra Şekerini</b> ekleyelim.'); setNextBtn('Devam Et →', false, false);
+  setHint('Mascarpone ve Pudra Şekerini kaseye sürükle'); setDialogue('Temiz bir kase geldi. Orijinal lezzet için <b>Mascarpone</b> ve <b>Pudra Şekerini</b> ekleyelim.'); 
+  setNextBtn('Devam Et →', false, false); // Buton gizlendi
   
   let added=0; const items=[{id:'masc', l:'Mascarpone', icon:'🧈'}, {id:'sugar', l:'Pudra Şekeri', icon:'🍚'}];
   items.forEach(d => {
@@ -575,7 +604,11 @@ function goCreamIngredients(){
         const rect=document.getElementById('cream-bowl').getBoundingClientRect();
         if(Math.hypot(p.clientX-(rect.left+rect.width/2), p.clientY-(rect.top+rect.height/2))<120) {
           el.classList.add('used'); added++; document.getElementById('cream-bowl-fill').style.height=(added*15)+'%'; playPowderBurst(.2);
-          if(added>=2){ tray.classList.add('hidden'); setDialogue('Malzemeler kasede! Şimdi mikserle bunu da uzun uzun <b>çırpalım.</b>'); setNextBtn('Devam Et →', true, true); currentStageHandler=()=>{ goMix('whisk'); }; }
+          if(added>=2){ 
+            tray.classList.add('hidden'); 
+            setDialogue('Malzemeler kasede! Şimdi mikserle bunu da uzun uzun <b>çırpalım.</b>');
+            setTimeout(() => { goMix('whisk'); }, 800); // OTOMATİK GEÇİŞ
+          }
         }
       } window.addEventListener('pointermove', onMove, {passive:false}); window.addEventListener('pointerup', onUp);
     };
@@ -586,7 +619,8 @@ function goCreamIngredients(){
 let bStep=0;
 function goAssemble(){
   showPanel('cake-station'); document.getElementById('build-tray').classList.remove('hidden'); bStep=0;
-  setHint('Parçaları ahşap standa sürükle'); setDialogue('Şimdi parçaları birleştirip, keki <b>Espresso ile ıslatalım.</b>'); setNextBtn('Devam Et →', false, false);
+  setHint('Parçaları ahşap standa sürükle'); setDialogue('Şimdi parçaları birleştirip, keki <b>Espresso ile ıslatalım.</b>'); 
+  setNextBtn('Devam Et →', false, false); // Buton gizlendi
   renderBuildTray();
 }
 function renderBuildTray(){
@@ -656,6 +690,11 @@ function openEnvelope(){
   
   setTimeout(()=>{ 
       env.style.display='none'; document.getElementById('hint-text').style.display='none'; 
+      
+      // SÜRPRİZ MESAJI BURADA JAVASCRIPT İLE YAZDIRILIYOR (INSTAGRAM GÖREMEZ!)
+      document.getElementById('final-heading').innerText = 'Laraa canım arkadaşımmm 🥳';
+      document.getElementById('final-body').innerText = 'Doğum günün kutlu olsunn, sevdiklerinle nice mutlu seneleree! Yeni yaşın sana başarı, mutluluk, sağlık, huzur, para versinn. Senii çooooooooook seviyorum, iyi ki seninle tanışmışım, iyi ki benim arkadaşımsın. İnşallah beraber nice doğum günleri kutlarızzz🥳🫶🏻💐💐';
+      
       const paper=document.getElementById('message-paper'); paper.style.display='block';
       setTimeout(()=>paper.classList.add('show'),50); 
       activateMic();
