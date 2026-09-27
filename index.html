@@ -702,6 +702,19 @@ function burstConfetti(){
     const angle=Math.random()*Math.PI*2, dist=100+Math.random()*300; c.style.setProperty('--dx',(Math.cos(angle)*dist)+'px'); c.style.setProperty('--dy',(Math.sin(angle)*dist-100)+'px'); c.style.setProperty('--spin',(Math.random()*720-360)+'deg'); c.style.animationDuration=(1.2+Math.random()*.8)+'s'; document.body.appendChild(c); setTimeout(()=>c.remove(),2200);
   }
 }
+
+// Sayfa arka plana atıldığında (veya sekme değiştirildiğinde) müziği durdurma
+document.addEventListener("visibilitychange", () => {
+  const audio = document.getElementById('bg-audio');
+  if (document.hidden) {
+    audio.pause();
+  } else {
+    // Geri dönüldüğünde eğer şarkı çalıyorduysa devam etsin
+    if (audio.dataset.playing === '1') {
+      audio.play().catch(()=>{});
+    }
+  }
+});
 </script>
 </body>
 </html>
