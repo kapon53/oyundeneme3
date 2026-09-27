@@ -39,7 +39,7 @@ button.main-btn:active{ transform:scale(.95); }
 button.main-btn:disabled{ opacity:.35; }
 
 /* Sohbet */
-.chat-avatar{ font-size:48px; margin-bottom:10px; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.4)); }
+.chat-avatar{ width: 80px; height: auto; object-fit: contain; margin-bottom:10px; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.4)); }
 .chat-line{ background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); border-radius:14px; padding:12px 16px; max-width:340px; font-size:16px; margin-bottom:16px; line-height:1.4; }
 .chat-input-row{ display:flex; gap:8px; width:100%; max-width:320px; }
 .chat-input{ flex:1; padding:14px; border-radius:24px; border:2px solid var(--wine-light); background:rgba(255,255,255,.1); color:#fff; font-family:inherit; font-size:15px; outline:none; }
@@ -47,7 +47,7 @@ button.main-btn:disabled{ opacity:.35; }
 .chat-send{ width:50px; height:50px; border-radius:50%; border:none; background:var(--wine); color:#fff; font-size:20px; cursor:pointer; }
 
 #dialogue-bar{ position:relative; z-index:30; display:flex; align-items:flex-start; gap:12px; margin:calc(env(safe-area-inset-top,0px) + 14px) 16px 0; padding:12px 14px; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); border-radius:16px; box-shadow:0 8px 16px rgba(0,0,0,0.2); backdrop-filter:blur(5px); }
-#dlg-avatar{ font-size:34px; flex-shrink:0; }
+#dlg-avatar{ width: 50px; height: auto; object-fit: contain; flex-shrink:0; }
 #dlg-text{ color:#fff; font-size:15px; line-height:1.4; padding-top:4px; }
 #dlg-text b{ color:var(--gold); }
 
@@ -222,7 +222,7 @@ button.main-btn:disabled{ opacity:.35; }
 <body>
 <div id="scene">
   <div id="chat-screen" class="screen">
-    <div class="chat-avatar">🧜‍♀️</div>
+    <img src="27822.png" class="chat-avatar" alt="Deniz Kızı">
     <div class="chat-line" id="chat-line-text">Merhaba! Canımız çok tatlı çekti, birlikte harika bir Tiramisu yapalım mı? Öncelikle adın ne?</div>
     <div class="chat-input-row">
       <input type="text" id="chat-input" class="chat-input" placeholder="Adını yaz...">
@@ -232,7 +232,7 @@ button.main-btn:disabled{ opacity:.35; }
 
   <div id="game-screen" class="hidden" style="flex-direction:column; height:100%; position:relative; z-index:5;">
     <div id="dialogue-bar">
-      <div id="dlg-avatar">🧜‍♀️</div>
+      <img src="27822.png" id="dlg-avatar" alt="Deniz Kızı">
       <div id="dlg-text">…</div>
     </div>
     <div id="stage-area">
