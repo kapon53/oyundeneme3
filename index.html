@@ -159,8 +159,7 @@ button.main-btn:disabled{ opacity:.35; }
 .bow-right { left:50%; transform-origin:left center; border-radius:50% 50% 50% 50% / 100% 50% 50% 100%; transform:translateY(-50%) perspective(150px) rotateY(-30deg); }
 
 #cocoa-dust { position:absolute; bottom:122px; left:50%; transform:translateX(-50%); width:200px; height:30px; border-radius:50%; opacity:0; transition:opacity 1s ease; z-index:3; box-shadow:inset 0 0 10px rgba(0,0,0,0.8);
-  background-color:var(--cream);
-  background-image: repeating-linear-gradient(45deg, var(--cocoa) 0 9px, transparent 9px 18px), repeating-linear-gradient(-45deg, var(--cocoa) 0 9px, transparent 9px 18px);
+  background-color:var(--cocoa);
 }
 #cocoa-dust.show { opacity:1; }
 
@@ -201,11 +200,11 @@ button.main-btn:disabled{ opacity:.35; }
 /* Kartın İçindeki Pasta (Doğrudan Yazılı) */
 #card-cake-container{ position:relative; width:200px; height:200px; margin:0 auto; background:#d4a373; border-radius:50%; box-shadow:inset 0 0 15px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
 #card-inner-cream { position:absolute; inset:12px; border-radius:50%; background:var(--cocoa); box-shadow:inset 0 0 25px rgba(0,0,0,0.9); display:flex; align-items:center; justify-content:center; }
-#card-cake-text{ font-family:'Great Vibes', cursive; font-size:28px; color:var(--wine); white-space:normal; line-height:1.1; text-shadow:0 1px 2px rgba(255,255,255,.3); margin:0; z-index:2;}
+#card-cake-text{ font-family:'Great Vibes', cursive; font-size:40px; color:#ffffff; white-space:normal; line-height:1.15; text-shadow:0 2px 6px rgba(0,0,0,.55); margin:0; z-index:2;}
 
 /* Mum */
 #flame { position:absolute; top:-20px; left:50%; transform:translateX(-50%); width:16px; height:24px; background:radial-gradient(ellipse at bottom, #ffeb3b 20%, #ff9800 60%, transparent 100%); border-radius:50% 50% 20% 20%; box-shadow:0 0 15px #ff9800, 0 0 30px #ffeb3b; animation:flicker 0.2s infinite alternate; cursor:pointer; z-index:10;}
-#placed-candle { position:absolute; top:20%; left:80%; transform:translate(-50%, -50%); font-size:36px; z-index:5; filter:drop-shadow(0 4px 4px rgba(0,0,0,0.6));}
+#placed-candle { position:absolute; top:10%; left:50%; transform:translate(-50%, -50%); font-size:36px; z-index:5; filter:drop-shadow(0 4px 4px rgba(0,0,0,0.6));}
 @keyframes flicker { 0% {transform:translateX(-50%) scale(1) rotate(-2deg); opacity:0.9;} 100% {transform:translateX(-50%) scale(1.1) rotate(2deg); opacity:1;} }
 #blow-btn{ margin-top:14px; padding:10px 24px; font-size:15px; font-weight:700; font-family:inherit; background:var(--wine); border:none; border-radius:24px; color:#fff; box-shadow:0 4px 10px rgba(0,0,0,0.4); display:inline-block; cursor:pointer; }
 
@@ -340,6 +339,8 @@ button.main-btn:disabled{ opacity:.35; }
     </div>
   </div>
 </div>
+
+<div id="music-holder" style="position:fixed; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; bottom:0; left:0;"></div>
 
 <script>
 // ==== SENTETİK SES MOTORU ====
@@ -639,7 +640,19 @@ function openEnvelope(){
       env.style.display='none'; document.getElementById('hint-text').style.display='none'; 
       const paper=document.getElementById('message-paper'); paper.style.display='block'; setTimeout(()=>paper.classList.add('show'),50); 
       activateMic();
+      playSurpriseSong();
   },900);
+}
+
+function playSurpriseSong(){
+  const holder=document.getElementById('music-holder');
+  if(!holder || holder.dataset.playing) return;
+  holder.dataset.playing='1';
+  const iframe=document.createElement('iframe');
+  iframe.width='1'; iframe.height='1'; iframe.frameBorder='0';
+  iframe.allow='autoplay; encrypted-media';
+  iframe.src='https://www.youtube.com/embed/YX0DAnMgToQ?autoplay=1&playsinline=1';
+  holder.appendChild(iframe);
 }
 
 function extinguishCandle(){
